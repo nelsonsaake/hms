@@ -4,14 +4,25 @@ namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Support\Str;
+use Spatie\Permission\Traits\HasRoles;
 
 class User extends Authenticatable
 {
     /** @use HasFactory<\Database\Factories\UserFactory> */
-    use HasFactory, Notifiable;
+    use HasRoles, HasFactory, Notifiable;
+
+    // Disable auto-incrementing
+    public $incrementing = false;
+
+    // Specify the key type as string (UUID)
+    protected $keyType = 'string';
+
+    // Specify the name of the primary key field
+    protected $primaryKey = 'id';
 
     /**
      * The attributes that are mass assignable.
@@ -58,4 +69,20 @@ class User extends Authenticatable
             ->map(fn ($word) => Str::substr($word, 0, 1))
             ->implode('');
     }
+
+    public function bookings(): HasMany
+    {
+        return $this->hasMany(Booking::class, 'user_id', 'id');
+    }
+    
+    protected static function boot()
+    {
+        parent::boot();
+
+        // Automatically generate UUID when creating a new Room
+        static::creating(function ($model) {
+            $model->id = Str::uuid();
+        });
+    }
+
 }

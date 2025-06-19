@@ -1,0 +1,91 @@
+<x-layouts.app :title="__('Create Room')">
+    <h2 class="text-xl font-semibold leading-tight text-gray-800 dark:text-gray-200 py-4 uppercase border-b-2 border-b-stone-700">
+        {{ __('Create Room') }}
+    </h2>
+
+    <div class="flex w-full flex-1 flex-col gap-4 rounded-xl mt-8">
+        <div class="flex items-center justify-between py-4 gap-4 flex-wrap">
+            <button type="button" onclick="history.back()"
+                class="inline-flex items-center rounded-lg bg-blue-600 px-4 py-2 text-sm font-medium text-gray-800 shadow hover:bg-blue-500 dark:bg-neutral-700 dark:text-white dark:hover:bg-neutral-600">
+                ← Back
+            </button>
+        </div>
+
+        <form wire:submit.prevent="save" action="{{ route('rooms.store') }}" method="POST" class="space-y-6">
+            @csrf
+
+                    <flux:input
+                        :label="__('Type')"
+                        wire:model="type"
+                        id="type"
+                        name="type"
+                        type="text"
+                        required
+                        value="{{ old('type') }}"
+                        :error="$errors->has('type')"
+                        :error-message="$errors->first('type')"
+                    />
+
+                    <flux:input
+                        :label="__('Price')"
+                        wire:model="price"
+                        id="price"
+                        name="price"
+                        type="text"
+                        required
+                        value="{{ old('price') }}"
+                        :error="$errors->has('price')"
+                        :error-message="$errors->first('price')"
+                    />
+
+                    <flux:input
+                        :label="__('Beds')"
+                        wire:model="beds"
+                        id="beds"
+                        name="beds"
+                        type="text"
+                        required
+                        value="{{ old('beds') }}"
+                        :error="$errors->has('beds')"
+                        :error-message="$errors->first('beds')"
+                    />
+
+                    <flux:input
+                        :label="__('Description')"
+                        wire:model="description"
+                        id="description"
+                        name="description"
+                        type="text"
+                        required
+                        value="{{ old('description') }}"
+                        :error="$errors->has('description')"
+                        :error-message="$errors->first('description')"
+                    />
+
+                    <flux:input
+                        :label="__('Status')"
+                        wire:model="status"
+                        id="status"
+                        name="status"
+                        type="text"
+                        required
+                        value="{{ old('status') }}"
+                        :error="$errors->has('status')"
+                        :error-message="$errors->first('status')"
+                    />
+
+            <!-- Submit and Cancel Buttons -->
+            <div class="flex justify-between gap-4">
+                <button type="button" onclick="history.back()"
+                    class="inline-flex items-center rounded-md bg-red-800 px-8 py-2 text-sm font-medium text-gray-50 shadow hover:bg-red-700">
+                    Cancel
+                </button>
+                <button type="submit"
+                    class="inline-flex items-center rounded-md bg-green-600 px-8 py-2 text-sm font-medium text-white shadow hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2">
+                    Submit
+                </button>
+            </div>
+        </form>
+    </div>
+</x-layouts.app>
+
