@@ -59,6 +59,7 @@ class RoomImageController extends Controller
             return view(
                 'room_images.create', 
                 compact('rooms'),
+
             );
         } catch (\Exception $e) {
             $msg = 'Something went wrong building create room image view, please try again later.';

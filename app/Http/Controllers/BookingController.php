@@ -61,6 +61,7 @@ class BookingController extends Controller
             return view(
                 'bookings.create', 
                 compact('users','rooms'),
+
             );
         } catch (\Exception $e) {
             $msg = 'Something went wrong building create booking view, please try again later.';

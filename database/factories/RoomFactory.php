@@ -20,7 +20,7 @@ class RoomFactory extends Factory
     {
         return [
             'type' => fake()->randomElement(RoomType::values()),
-            'price' => fake()->word(),
+            'price' => fake()->randomFloat(2, 1, 1000),
             'beds' => fake()->numberBetween(1, 1000),
             'description' => fake()->sentence(),
             'status' => fake()->randomElement(RoomStatus::values()),

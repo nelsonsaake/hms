@@ -55,8 +55,8 @@ class RoomController extends Controller
         try {
 
             return view(
-                'rooms.create', 
-                compact(),
+                'rooms.create',
+
             );
         } catch (\Exception $e) {
             $msg = 'Something went wrong building create room view, please try again later.';

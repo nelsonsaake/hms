@@ -74,17 +74,23 @@
                             :error-message="$errors->first('check_out')"
                         />
 
-                    <flux:input
-                        :label="__('Status')"
+                    <flux:select
                         wire:model="status"
-                        id="status"
                         name="status"
-                        type="text"
-                        required
-                        value="{{ old('status') }}"
+                        id="status"
+                        :label="__('Status')"
                         :error="$errors->has('status')"
                         :error-message="$errors->first('status')"
-                    />
+                    >
+                        @foreach (BookingStatus::values() as $v)
+                            <option 
+                                value="{{ $v }}"
+                                {{ old('status') == $v ? 'selected' : '' }}
+                            >
+                                {{ efmt($v)  }}
+                            </option>
+                        @endforeach
+                    </flux:select>
 
                     <flux:input
                         :label="__('Guest Name')"

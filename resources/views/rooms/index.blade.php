@@ -58,7 +58,7 @@
                 @forelse ($rooms as $v)
                     <tr class="hover:bg-neutral-50 dark:hover:bg-neutral-800/50">
                         <td class="px-4 py-3 text-sm text-gray-900 dark:text-gray-100">
-                                {{$v->type}}
+                                {{efmt($v->type)}}
                             </td>
                             <td class="px-4 py-3 text-sm text-gray-900 dark:text-gray-100">
                                 {{nfmt($v->price)}}
@@ -70,7 +70,7 @@
                                 {{$v->description}}
                             </td>
                             <td class="px-4 py-3 text-sm text-gray-900 dark:text-gray-100">
-                                {{$v->status}}
+                                {{efmt($v->status)}}
                             </td>
 
                         <td class="px-4 py-2">

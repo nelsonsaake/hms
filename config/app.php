@@ -1,5 +1,7 @@
 <?php
 
+use Illuminate\Support\Facades\Facade;
+
 return [
 
     /*
@@ -123,4 +125,11 @@ return [
         'store' => env('APP_MAINTENANCE_STORE', 'database'),
     ],
 
+    'aliases' => Facade::defaultAliases()->merge([ 
+        'Roles' => App\Enums\Roles::class,
+        'Permissions' => App\Enums\Permissions::class, 
+        'BookingStatus' => App\Enums\BookingStatus::class, 
+        'RoomStatus' => App\Enums\RoomStatus::class, 
+        'RoomType' => App\Enums\RoomType::class, 
+    ])->toArray(),
 ];

@@ -83,7 +83,7 @@
                                 {{tfmt($v->check_out)}}
                             </td>
                             <td class="px-4 py-3 text-sm text-gray-900 dark:text-gray-100">
-                                {{$v->status}}
+                                {{efmt($v->status)}}
                             </td>
                             <td class="px-4 py-3 text-sm text-gray-900 dark:text-gray-100">
                                 {{$v->guest_name}}

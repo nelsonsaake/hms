@@ -55,8 +55,8 @@ class UserController extends Controller
         try {
 
             return view(
-                'users.create', 
-                compact(),
+                'users.create',
+
             );
         } catch (\Exception $e) {
             $msg = 'Something went wrong building create user view, please try again later.';

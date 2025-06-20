@@ -33,6 +33,15 @@ class Permissions
     public const RESTORE_ROOM = 'restore_room';
     public const FORCE_DELETE_ROOM = 'force_delete_room';
 
+    // USER PERMISSIONS
+    public const VIEW_ANY_USER = 'view_any_user';
+    public const VIEW_USER = 'view_user';
+    public const CREATE_USER = 'create_user';
+    public const UPDATE_USER = 'update_user';
+    public const DELETE_USER = 'delete_user';
+    public const RESTORE_USER = 'restore_user';
+    public const FORCE_DELETE_USER = 'force_delete_user';
+
 
     /**
      * Get all permissions as an array.
@@ -67,6 +76,15 @@ class Permissions
             self::DELETE_ROOM,
             self::RESTORE_ROOM,
             self::FORCE_DELETE_ROOM,
+        
+            // USER PERMISSIONS
+            self::VIEW_ANY_USER,
+            self::VIEW_USER,
+            self::CREATE_USER,
+            self::UPDATE_USER,
+            self::DELETE_USER,
+            self::RESTORE_USER,
+            self::FORCE_DELETE_USER,
         
         ];
     }

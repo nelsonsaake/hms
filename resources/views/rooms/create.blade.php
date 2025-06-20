@@ -14,17 +14,23 @@
         <form wire:submit.prevent="save" action="{{ route('rooms.store') }}" method="POST" class="space-y-6">
             @csrf
 
-                    <flux:input
-                        :label="__('Type')"
+                    <flux:select
                         wire:model="type"
-                        id="type"
                         name="type"
-                        type="text"
-                        required
-                        value="{{ old('type') }}"
+                        id="type"
+                        :label="__('Type')"
                         :error="$errors->has('type')"
                         :error-message="$errors->first('type')"
-                    />
+                    >
+                        @foreach (RoomType::values() as $v)
+                            <option 
+                                value="{{ $v }}"
+                                {{ old('type') == $v ? 'selected' : '' }}
+                            >
+                                {{ efmt($v)  }}
+                            </option>
+                        @endforeach
+                    </flux:select>
 
                     <flux:input
                         :label="__('Price')"
@@ -62,17 +68,23 @@
                         :error-message="$errors->first('description')"
                     />
 
-                    <flux:input
-                        :label="__('Status')"
+                    <flux:select
                         wire:model="status"
-                        id="status"
                         name="status"
-                        type="text"
-                        required
-                        value="{{ old('status') }}"
+                        id="status"
+                        :label="__('Status')"
                         :error="$errors->has('status')"
                         :error-message="$errors->first('status')"
-                    />
+                    >
+                        @foreach (RoomStatus::values() as $v)
+                            <option 
+                                value="{{ $v }}"
+                                {{ old('status') == $v ? 'selected' : '' }}
+                            >
+                                {{ efmt($v)  }}
+                            </option>
+                        @endforeach
+                    </flux:select>
 
             <!-- Submit and Cancel Buttons -->
             <div class="flex justify-between gap-4">
