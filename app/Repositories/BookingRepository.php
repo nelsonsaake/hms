@@ -9,6 +9,7 @@ use App\Models\Booking;
 
 class BookingRepository
 {
+
     /**
      * paginate: filter booking, and paginate
      * 
@@ -65,6 +66,7 @@ class BookingRepository
      */
     public function create(array $data)
     {
+
         return Booking::create($data);
     }
 
@@ -102,5 +104,4 @@ class BookingRepository
         $booking->delete();
     }
 }
-
 

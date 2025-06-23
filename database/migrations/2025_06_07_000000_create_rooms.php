@@ -17,7 +17,7 @@ return new class extends Migration
             $table->string('type'); 
             $table->decimal('price', 10, 2); 
             $table->integer('beds'); 
-            $table->string('description'); 
+            $table->string('description')->nullable(); 
             $table->string('status');
 
             $table->timestamps();

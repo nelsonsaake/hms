@@ -22,10 +22,10 @@ class UpdateRoomImageRequest extends FormRequest
     public function rules(): array
     {
         
-
+ 
         return [
-            'path' => 'required|string',
-            'room_id' => 'required|string|exists:rooms,id',
+            'path' => "required|string",
+            'room_id' => "required|string|exists:rooms,id",
         ];
     }
 }

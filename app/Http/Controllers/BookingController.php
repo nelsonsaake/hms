@@ -4,9 +4,7 @@ declare(strict_types=1);
 
 namespace App\Http\Controllers;
 
-use App\Http\Controllers\Controller;
-use App\Http\Responses\MessageResponse;
-use App\Http\Responses\ErrorResponse;
+use App\Http\Controllers\Controller; 
 use App\Http\Request\StoreBookingRequest;
 use App\Http\Request\UpdateBookingRequest;
 use App\Http\Resources\BookingResource;

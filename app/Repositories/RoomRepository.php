@@ -9,6 +9,7 @@ use App\Models\Room;
 
 class RoomRepository
 {
+
     /**
      * paginate: filter room, and paginate
      * 
@@ -25,7 +26,7 @@ class RoomRepository
     public function paginate(array $data)
     { 
         $search = get($data, 'search');
-        
+
         return Room::query()
             ->when($search, function ($query) use ($search) {
                 return $query
@@ -69,6 +70,7 @@ class RoomRepository
      */
     public function create(array $data)
     {
+
         return Room::create($data);
     }
 
@@ -103,5 +105,4 @@ class RoomRepository
         $room->delete();
     }
 }
-
 

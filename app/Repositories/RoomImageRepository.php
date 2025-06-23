@@ -6,9 +6,13 @@ namespace App\Repositories;
 
 use Carbon\Carbon;
 use App\Models\RoomImage;
+use Illuminate\Support\Arr;
 
 class RoomImageRepository
 {
+
+    protected string $disk = "local";
+
     /**
      * paginate: filter room image, and paginate
      * 
@@ -45,6 +49,23 @@ class RoomImageRepository
     }
 
     /**
+    * Store a file from the given data array under a specific key.
+    *
+    * @param array $data The input data array containing the file.
+    * @param string $key The key in the array where the file is expected.
+    * @return string|null The path to the stored file or null if no file was provided.
+    */
+    public function storeFile(array $data, string $key): string|null
+    {
+        $file = Arr::get($data, $key);
+        if (!$file) {
+            return null;
+        }
+
+        return $file->store('uploads/room_images', $this->disk);
+    }
+
+    /**
      * create: create room image in db
      *
      * @param array $data {
@@ -55,6 +76,8 @@ class RoomImageRepository
      */
     public function create(array $data)
     {
+        $data['path'] = $this->storeFile($data, 'path');
+
         return RoomImage::create($data);
     }
 
@@ -86,5 +109,4 @@ class RoomImageRepository
         $roomImage->delete();
     }
 }
-
 

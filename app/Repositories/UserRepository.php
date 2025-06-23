@@ -9,6 +9,7 @@ use App\Models\User;
 
 class UserRepository
 {
+
     /**
      * paginate: filter user, and paginate
      * 
@@ -24,7 +25,7 @@ class UserRepository
     public function paginate(array $data)
     { 
         $search = get($data, 'search');
-        
+
         return User::query()
             ->when($search, function ($query) use ($search) {
                 return $query
@@ -62,6 +63,7 @@ class UserRepository
      */
     public function create(array $data)
     {
+
         return User::create($data);
     }
 
@@ -93,5 +95,4 @@ class UserRepository
         $user->delete();
     }
 }
-
 

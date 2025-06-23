@@ -22,13 +22,13 @@ class UpdateRoomRequest extends FormRequest
     public function rules(): array
     {
         
-
+ 
         return [
-            'type' => 'required|string',
-            'price' => 'required|numeric',
-            'beds' => 'required|integer',
-            'description' => 'required|string',
-            'status' => 'required|string',
+            'type' => "required|string",
+            'price' => "required|numeric",
+            'beds' => "required|integer",
+            'description' => "required|string",
+            'status' => "required|string",
         ];
     }
 }

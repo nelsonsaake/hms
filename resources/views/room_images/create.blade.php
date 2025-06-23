@@ -11,38 +11,28 @@
             </button>
         </div>
 
-        <form wire:submit.prevent="save" action="{{ route('room_images.store') }}" method="POST" class="space-y-6">
+        <form action="{{ route('room_images.store') }}" method="POST" enctype="multipart/form-data" class="space-y-6">
             @csrf
 
-                    <flux:input
-                        :label="__('Path')"
-                        wire:model="path"
-                        id="path"
-                        name="path"
-                        type="text"
-                        required
-                        value="{{ old('path') }}"
-                        :error="$errors->has('path')"
-                        :error-message="$errors->first('path')"
-                    />
+            <!-- Image Upload with Preview -->            
+            <x-image-picker label="Image" name="image" required /> 
 
-                    <flux:select
-                        wire:model="room_id"
-                        name="room_id"
-                        id="room_id"
-                        :label="__('Room')"
-                        :error="$errors->has('room_id')"
-                        :error-message="$errors->first('room_id')"
-                    >
-                        @foreach ($rooms as $v)
-                            <option 
-                                value="{{ $v->id }}"
-                                {{ old('room_id') == $v->id ? 'selected' : '' }}
-                            >
-                                {{ $v->name ?? idfmt($v->id) }}
-                            </option>
-                        @endforeach
-                    </flux:select>
+            <!-- Room Select Dropdown -->
+            <flux:select
+                wire:model="room_id"
+                name="room_id"
+                id="room_id"
+                :label="__('Room')"
+                :error="$errors->has('room_id')"
+                :error-message="$errors->first('room_id')">
+                @foreach ($rooms as $v)
+                <option
+                    value="{{ $v->id }}"
+                    {{ old('room_id') == $v->id ? 'selected' : '' }}>
+                    {{ $v->name ?? idfmt($v->id) }}
+                </option>
+                @endforeach
+            </flux:select>
 
             <!-- Submit and Cancel Buttons -->
             <div class="flex justify-between gap-4">
@@ -58,4 +48,3 @@
         </form>
     </div>
 </x-layouts.app>
-

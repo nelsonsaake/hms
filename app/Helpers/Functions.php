@@ -1,6 +1,6 @@
 <?php
 
-use Carbon\Carbon;
+use Carbon\Carbon; 
 
 /**
  * Get the value from the array if it's set, otherwise return default.
