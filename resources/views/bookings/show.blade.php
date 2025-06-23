@@ -34,92 +34,92 @@
 
         <div class="bg-white dark:bg-neutral-800 rounded-xl divide-y divide-gray-200 dark:divide-gray-700">
 
-                <div class="pr-4 py-4 sm:grid sm:grid-cols-3 sm:gap-4">
-                    <dt class="text-sm font-medium text-gray-500 dark:text-gray-400">
-                        {{ __('User') }}
-                    </dt>
-                    <dd class="mt-1 text-sm text-gray-900 dark:text-gray-100 sm:col-span-2 sm:mt-0">
+                    <div class="pr-4 py-4 sm:grid sm:grid-cols-3 sm:gap-4">
+                        <dt class="text-sm font-medium text-gray-500 dark:text-gray-400">
+                            {{ __('User') }}
+                        </dt>
+                        <dd class="mt-1 text-sm text-gray-900 dark:text-gray-100 sm:col-span-2 sm:mt-0">
 
-                            {{ $booking->user_id?->name ?? idfmt($booking->user_id) }}
+                                {{ $booking->user_id?->name ?? idfmt($booking->user_id) }}
 
-                    </dd>
-                </div>
+                        </dd>
+                    </div>
 
-                <div class="pr-4 py-4 sm:grid sm:grid-cols-3 sm:gap-4">
-                    <dt class="text-sm font-medium text-gray-500 dark:text-gray-400">
-                        {{ __('Room') }}
-                    </dt>
-                    <dd class="mt-1 text-sm text-gray-900 dark:text-gray-100 sm:col-span-2 sm:mt-0">
+                    <div class="pr-4 py-4 sm:grid sm:grid-cols-3 sm:gap-4">
+                        <dt class="text-sm font-medium text-gray-500 dark:text-gray-400">
+                            {{ __('Room') }}
+                        </dt>
+                        <dd class="mt-1 text-sm text-gray-900 dark:text-gray-100 sm:col-span-2 sm:mt-0">
 
-                            {{ $booking->room_id?->name ?? idfmt($booking->room_id) }}
+                                {{ $booking->room_id?->name ?? idfmt($booking->room_id) }}
 
-                    </dd>
-                </div>
+                        </dd>
+                    </div>
 
-                <div class="pr-4 py-4 sm:grid sm:grid-cols-3 sm:gap-4">
-                    <dt class="text-sm font-medium text-gray-500 dark:text-gray-400">
-                        {{ __('Check In') }}
-                    </dt>
-                    <dd class="mt-1 text-sm text-gray-900 dark:text-gray-100 sm:col-span-2 sm:mt-0">
+                    <div class="pr-4 py-4 sm:grid sm:grid-cols-3 sm:gap-4">
+                        <dt class="text-sm font-medium text-gray-500 dark:text-gray-400">
+                            {{ __('Check In') }}
+                        </dt>
+                        <dd class="mt-1 text-sm text-gray-900 dark:text-gray-100 sm:col-span-2 sm:mt-0">
 
-                                {{ hdfmt($booking->check_in) }}
+                                    {{ hdfmt($booking->check_in) }}
 
-                    </dd>
-                </div>
+                        </dd>
+                    </div>
 
-                <div class="pr-4 py-4 sm:grid sm:grid-cols-3 sm:gap-4">
-                    <dt class="text-sm font-medium text-gray-500 dark:text-gray-400">
-                        {{ __('Check Out') }}
-                    </dt>
-                    <dd class="mt-1 text-sm text-gray-900 dark:text-gray-100 sm:col-span-2 sm:mt-0">
+                    <div class="pr-4 py-4 sm:grid sm:grid-cols-3 sm:gap-4">
+                        <dt class="text-sm font-medium text-gray-500 dark:text-gray-400">
+                            {{ __('Check Out') }}
+                        </dt>
+                        <dd class="mt-1 text-sm text-gray-900 dark:text-gray-100 sm:col-span-2 sm:mt-0">
 
-                                {{ hdfmt($booking->check_out) }}
+                                    {{ hdfmt($booking->check_out) }}
 
-                    </dd>
-                </div>
+                        </dd>
+                    </div>
 
-                <div class="pr-4 py-4 sm:grid sm:grid-cols-3 sm:gap-4">
-                    <dt class="text-sm font-medium text-gray-500 dark:text-gray-400">
-                        {{ __('Status') }}
-                    </dt>
-                    <dd class="mt-1 text-sm text-gray-900 dark:text-gray-100 sm:col-span-2 sm:mt-0">
-                        efmt($v->status)
+                    <div class="pr-4 py-4 sm:grid sm:grid-cols-3 sm:gap-4">
+                        <dt class="text-sm font-medium text-gray-500 dark:text-gray-400">
+                            {{ __('Status') }}
+                        </dt>
+                        <dd class="mt-1 text-sm text-gray-900 dark:text-gray-100 sm:col-span-2 sm:mt-0">
+                            efmt($v->status)
 
-                    </dd>
-                </div>
+                        </dd>
+                    </div>
 
-                <div class="pr-4 py-4 sm:grid sm:grid-cols-3 sm:gap-4">
-                    <dt class="text-sm font-medium text-gray-500 dark:text-gray-400">
-                        {{ __('Guest Name') }}
-                    </dt>
-                    <dd class="mt-1 text-sm text-gray-900 dark:text-gray-100 sm:col-span-2 sm:mt-0">
+                    <div class="pr-4 py-4 sm:grid sm:grid-cols-3 sm:gap-4">
+                        <dt class="text-sm font-medium text-gray-500 dark:text-gray-400">
+                            {{ __('Guest Name') }}
+                        </dt>
+                        <dd class="mt-1 text-sm text-gray-900 dark:text-gray-100 sm:col-span-2 sm:mt-0">
 
-                            {{ $booking->guest_name }}
+                                {{ $booking->guest_name }}
 
-                    </dd>
-                </div>
+                        </dd>
+                    </div>
 
-                <div class="pr-4 py-4 sm:grid sm:grid-cols-3 sm:gap-4">
-                    <dt class="text-sm font-medium text-gray-500 dark:text-gray-400">
-                        {{ __('Guest Email') }}
-                    </dt>
-                    <dd class="mt-1 text-sm text-gray-900 dark:text-gray-100 sm:col-span-2 sm:mt-0">
+                    <div class="pr-4 py-4 sm:grid sm:grid-cols-3 sm:gap-4">
+                        <dt class="text-sm font-medium text-gray-500 dark:text-gray-400">
+                            {{ __('Guest Email') }}
+                        </dt>
+                        <dd class="mt-1 text-sm text-gray-900 dark:text-gray-100 sm:col-span-2 sm:mt-0">
 
-                            {{ $booking->guest_email }}
+                                {{ $booking->guest_email }}
 
-                    </dd>
-                </div>
+                        </dd>
+                    </div>
 
-                <div class="pr-4 py-4 sm:grid sm:grid-cols-3 sm:gap-4">
-                    <dt class="text-sm font-medium text-gray-500 dark:text-gray-400">
-                        {{ __('Guest Phone') }}
-                    </dt>
-                    <dd class="mt-1 text-sm text-gray-900 dark:text-gray-100 sm:col-span-2 sm:mt-0">
+                    <div class="pr-4 py-4 sm:grid sm:grid-cols-3 sm:gap-4">
+                        <dt class="text-sm font-medium text-gray-500 dark:text-gray-400">
+                            {{ __('Guest Phone') }}
+                        </dt>
+                        <dd class="mt-1 text-sm text-gray-900 dark:text-gray-100 sm:col-span-2 sm:mt-0">
 
-                            {{ $booking->guest_phone }}
+                                {{ $booking->guest_phone }}
 
-                    </dd>
-                </div>
+                        </dd>
+                    </div>
 
         </div>
     </div>

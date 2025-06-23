@@ -88,6 +88,7 @@ class BookingRepository
      */
     public function update(Booking $booking, array $data)
     {
+
         $booking->update($data);
 
         return $booking;
@@ -101,6 +102,7 @@ class BookingRepository
      */
     public function destroy(Booking $booking)
     {
+
         $booking->delete();
     }
 }

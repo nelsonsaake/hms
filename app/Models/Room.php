@@ -37,6 +37,9 @@ class Room extends Model
         'beds' => 'integer',
     ];
 
+    protected $append = [
+    ];
+
     protected static function boot()
     {
         parent::boot();

@@ -9,6 +9,7 @@ use App\Models\RoomImage;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Http\File as LaravelFile;
+use Illuminate\Support\Str;
 
 class RoomImageSeederService
 {
@@ -84,6 +85,7 @@ class RoomImageSeederService
 
             // Prepare and insert new image records
             $images = array_map(fn($path) => [
+                'id' => Str::uuid(),
                 'path' => $path,
                 'room_id' => $room->id,
                 'created_at' => now(),

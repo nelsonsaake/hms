@@ -79,6 +79,7 @@ class UserRepository
      */
     public function update(User $user, array $data)
     {
+
         $user->update($data);
 
         return $user;
@@ -92,6 +93,7 @@ class UserRepository
      */
     public function destroy(User $user)
     {
+
         $user->delete();
     }
 }

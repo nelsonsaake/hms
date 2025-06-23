@@ -29,6 +29,10 @@ class RoomImage extends Model
         'room_id',
     ];
 
+    protected $append = [
+        'url',
+    ];
+
     protected static function boot()
     {
         parent::boot();
@@ -42,6 +46,14 @@ class RoomImage extends Model
     public function room(): BelongsTo
     {
         return $this->belongsTo(Room::class, 'room_id', 'id');
+    }
+
+    public function getUrlAttribute()
+    {
+        if ($this->path) {
+            return url($this->path);
+        }
+        return null;
     }
 
 }

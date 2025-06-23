@@ -89,6 +89,7 @@ class RoomRepository
      */
     public function update(Room $room, array $data)
     {
+
         $room->update($data);
 
         return $room;
@@ -102,6 +103,7 @@ class RoomRepository
      */
     public function destroy(Room $room)
     {
+
         $room->delete();
     }
 }

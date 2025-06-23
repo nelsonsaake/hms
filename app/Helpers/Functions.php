@@ -1,6 +1,7 @@
 <?php
 
-use Carbon\Carbon; 
+use Carbon\Carbon;
+use Illuminate\Support\Facades\Storage;
 
 /**
  * Get the value from the array if it's set, otherwise return default.
@@ -179,4 +180,15 @@ function idfmt(string $uuid): string
 {
     $segments = explode('-', $uuid);
     return end($segments);
+}
+
+/**
+ * Check if a file exists on the public storage disk.
+ *
+ * @param string $path The relative path to the file.
+ * @return bool True if the file exists, false otherwise.
+ */
+function fileExists(string $path): bool
+{
+    return Storage::disk('public')->exists($path);
 }

@@ -54,9 +54,9 @@
 
                 @forelse ($roomImages as $v)
                     <tr class="hover:bg-neutral-50 dark:hover:bg-neutral-800/50">
-                        <td class="px-4 py-3 text-sm text-gray-900 dark:text-gray-100">
-                                {{$v->path}}
-                            </td>
+                        <td class="px-4 py-1 text-sm text-gray-900 dark:text-gray-100 w-1">
+                                <x-image-display :src="$v->url" size="xs" label="" />
+                            </td>                          
                             <td class="px-4 py-3 text-sm text-gray-900 dark:text-gray-100">
                                 <a 
                                     href="{{route('rooms.index', $v?->room_id)}}"

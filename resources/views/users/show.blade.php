@@ -34,27 +34,27 @@
 
         <div class="bg-white dark:bg-neutral-800 rounded-xl divide-y divide-gray-200 dark:divide-gray-700">
 
-                <div class="pr-4 py-4 sm:grid sm:grid-cols-3 sm:gap-4">
-                    <dt class="text-sm font-medium text-gray-500 dark:text-gray-400">
-                        {{ __('Name') }}
-                    </dt>
-                    <dd class="mt-1 text-sm text-gray-900 dark:text-gray-100 sm:col-span-2 sm:mt-0">
+                    <div class="pr-4 py-4 sm:grid sm:grid-cols-3 sm:gap-4">
+                        <dt class="text-sm font-medium text-gray-500 dark:text-gray-400">
+                            {{ __('Name') }}
+                        </dt>
+                        <dd class="mt-1 text-sm text-gray-900 dark:text-gray-100 sm:col-span-2 sm:mt-0">
 
-                            {{ $user->name }}
+                                {{ $user->name }}
 
-                    </dd>
-                </div>
+                        </dd>
+                    </div>
 
-                <div class="pr-4 py-4 sm:grid sm:grid-cols-3 sm:gap-4">
-                    <dt class="text-sm font-medium text-gray-500 dark:text-gray-400">
-                        {{ __('Email') }}
-                    </dt>
-                    <dd class="mt-1 text-sm text-gray-900 dark:text-gray-100 sm:col-span-2 sm:mt-0">
+                    <div class="pr-4 py-4 sm:grid sm:grid-cols-3 sm:gap-4">
+                        <dt class="text-sm font-medium text-gray-500 dark:text-gray-400">
+                            {{ __('Email') }}
+                        </dt>
+                        <dd class="mt-1 text-sm text-gray-900 dark:text-gray-100 sm:col-span-2 sm:mt-0">
 
-                            {{ $user->email }}
+                                {{ $user->email }}
 
-                    </dd>
-                </div>
+                        </dd>
+                    </div>
 
         </div>
     </div>

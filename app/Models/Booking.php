@@ -35,6 +35,9 @@ class Booking extends Model
         'guest_phone',
     ];
 
+    protected $append = [
+    ];
+
     protected static function boot()
     {
         parent::boot();
