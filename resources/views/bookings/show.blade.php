@@ -40,7 +40,12 @@
                         </dt>
                         <dd class="mt-1 text-sm text-gray-900 dark:text-gray-100 sm:col-span-2 sm:mt-0">
 
-                                {{ $booking->user_id?->name ?? idfmt($booking->user_id) }}
+                                <a 
+                                    href="{{route('users.show', $booking?->user_id)}}"
+                                    class="underline text-blue-500"
+                                >
+                                    {{$booking->user?->name ?? idfmt($booking->user_id)}}
+                                </a>
 
                         </dd>
                     </div>
@@ -51,7 +56,12 @@
                         </dt>
                         <dd class="mt-1 text-sm text-gray-900 dark:text-gray-100 sm:col-span-2 sm:mt-0">
 
-                                {{ $booking->room_id?->name ?? idfmt($booking->room_id) }}
+                                <a 
+                                    href="{{route('rooms.show', $booking?->room_id)}}"
+                                    class="underline text-blue-500"
+                                >
+                                    {{$booking->room?->name ?? idfmt($booking->room_id)}}
+                                </a>
 
                         </dd>
                     </div>
@@ -83,7 +93,7 @@
                             {{ __('Status') }}
                         </dt>
                         <dd class="mt-1 text-sm text-gray-900 dark:text-gray-100 sm:col-span-2 sm:mt-0">
-                            efmt($v->status)
+                            {{ efmt($booking->status) }}
 
                         </dd>
                     </div>

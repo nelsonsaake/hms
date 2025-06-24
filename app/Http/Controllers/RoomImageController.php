@@ -4,13 +4,13 @@ declare(strict_types=1);
 
 namespace App\Http\Controllers;
 
-use App\Http\Controllers\Controller;
+use App\Http\Controllers\Controller; 
 use App\Http\Request\StoreRoomImageRequest;
 use App\Http\Request\UpdateRoomImageRequest;
 use App\Http\Resources\RoomImageResource;
 use App\Models\RoomImage;
 use App\Models\Room;
-use App\Repositories\RoomImageRepository;
+use App\Repositories\RoomImageRepository; 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Log;
@@ -18,8 +18,9 @@ use Illuminate\Support\Facades\Log;
 class RoomImageController extends Controller
 {
     public function __construct(
-        protected RoomImageRepository $roomImageRepository,
-    ) {}
+        protected RoomImageRepository $roomImageRepository, 
+    ) {
+    }
 
     /**
      * Display a listing of the room image.
@@ -28,13 +29,13 @@ class RoomImageController extends Controller
      */
     public function index(Request $request)
     {
-        //  Gate::authorize('viewAny', RoomImage::class);
+      //  Gate::authorize('viewAny', RoomImage::class);
 
-        try {
+        try {  
             $roomImages = $this->roomImageRepository->paginate($request->all());
             return view('room_images.index', compact('roomImages'));
         } catch (\Exception $e) {
-            Log::debug("Error getting room image: " . $e->getMessage());
+            Log::debug ("Error getting room image: " . $e->getMessage());
             $msg = 'Something went wrong getting room images, please try again later.';
             return redirect()->back()->withErrors($msg);
         }
@@ -48,13 +49,13 @@ class RoomImageController extends Controller
      */
     public function create(Request $request)
     {
-        // Gate::authorize('create', RoomImage::class);
+       // Gate::authorize('create', RoomImage::class);
 
-        try {
+        try { 
             $rooms = Room::all();
 
             return view(
-                'room_images.create',
+                'room_images.create', 
                 compact('rooms'),
 
             );
@@ -74,13 +75,13 @@ class RoomImageController extends Controller
     {
         // Gate::authorize('create', RoomImage::class);
 
-        try {
-            $roomImage = $this->roomImageRepository->create($request->all());
+        try { 
+            $roomImage = $this->roomImageRepository->create($request->all()); 
             return redirect()
                 ->route('room_images.index')
                 ->with('success', 'Create room image successful');
         } catch (\Exception $e) {
-            Log::debug("Error creating room image: " . $e->getMessage());
+            Log::debug ("Error creating room image: " . $e->getMessage());
             $msg = 'Something went wrong creating room image, please try again later.';
             return redirect()->back()->withErrors($msg);
         }
@@ -97,7 +98,7 @@ class RoomImageController extends Controller
         // Gate::authorize('view', $roomImage);
 
         return view(
-            'room_images.show',
+            'room_images.show', 
             compact('roomImage'),
         );
     }
@@ -112,15 +113,13 @@ class RoomImageController extends Controller
     {
         // Gate::authorize('view', $roomImage);
 
-        try {
+        try { 
             $rooms = Room::all();
 
             return view(
-                'room_images.edit',
+                'room_images.edit', 
                 compact(
-                    'roomImage',
-                    'rooms'
-                ),
+                    'roomImage','rooms'),
             );
         } catch (\Exception $e) {
             $msg = 'Something went wrong building create room image view, please try again later.';
@@ -138,18 +137,18 @@ class RoomImageController extends Controller
     public function update(UpdateRoomImageRequest $request, RoomImage $roomImage)
     {
         // Gate::authorize('update', $roomImage);
-        
+
         try {
             $roomImage = $this->roomImageRepository->update($roomImage, $request->all());
             return redirect()
                 ->route('room_images.index')
                 ->with('success', 'Update room image successful');
         } catch (\Exception $e) {
-            Log::debug("Error updating room image: " . $e->getMessage());
-            return redirect()->back()->withErrors(
+            Log::debug ("Error updating room image: " . $e->getMessage());
+             return redirect()->back()->withErrors(
                 'Something went wrong updating the room image, please try again later.'
             );
-        }
+        } 
     }
 
     /**
@@ -168,10 +167,11 @@ class RoomImageController extends Controller
                 ->route('room_images.index')
                 ->with('success', 'Room Image deleted successfully.');
         } catch (\Exception $e) {
-            Log::debug("Error deleting room image: " .  $e->getMessage());
-            return redirect()->back()->withErrors(
+            Log::debug ("Error deleting room image: " .  $e->getMessage());
+             return redirect()->back()->withErrors(
                 'Something went wrong deleting the room image, please try again later.'
             );
-        }
+        } 
     }
 }
+

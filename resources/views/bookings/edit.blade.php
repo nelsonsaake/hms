@@ -11,7 +11,7 @@
             </button>
         </div>
 
-        <form wire:submit.prevent="save" action="{{ route('bookings.update', $booking) }}" method="POST" class="space-y-6">
+        <form wire:submit.prevent="save" action="{{ route('bookings.update', $booking) }}"   method="POST" class="space-y-6">
             @csrf
             @method('PUT')
 
@@ -75,17 +75,23 @@
                             :error-message="$errors->first('check_out')"
                         />
 
-                    <flux:input
+                    <flux:select
                         wire:model="status"
                         name="status"
                         id="status"
-                        type="text"
-                        required
                         :label="__('Status')"
-                        :value="$booking->status"
                         :error="$errors->has('status')"
                         :error-message="$errors->first('status')"
-                    />
+                    >
+                        @foreach (BookingStatus::values() as $v)
+                            <option 
+                                value="{{ $v }}"
+                                {{ $booking->status == $v ? 'selected' : '' }}
+                            >
+                                {{ efmt($v)  }}
+                            </option>
+                        @endforeach
+                    </flux:select>
 
                     <flux:input
                         wire:model="guest_name"

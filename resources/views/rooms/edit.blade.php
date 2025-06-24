@@ -11,21 +11,27 @@
             </button>
         </div>
 
-        <form wire:submit.prevent="save" action="{{ route('rooms.update', $room) }}" method="POST" class="space-y-6">
+        <form wire:submit.prevent="save" action="{{ route('rooms.update', $room) }}"   method="POST" class="space-y-6">
             @csrf
             @method('PUT')
 
-                    <flux:input
+                    <flux:select
                         wire:model="type"
                         name="type"
                         id="type"
-                        type="text"
-                        required
                         :label="__('Type')"
-                        :value="$room->type"
                         :error="$errors->has('type')"
                         :error-message="$errors->first('type')"
-                    />
+                    >
+                        @foreach (RoomType::values() as $v)
+                            <option 
+                                value="{{ $v }}"
+                                {{ $room->type == $v ? 'selected' : '' }}
+                            >
+                                {{ efmt($v)  }}
+                            </option>
+                        @endforeach
+                    </flux:select>
 
                     <flux:input
                         wire:model="price"
@@ -63,17 +69,23 @@
                         :error-message="$errors->first('description')"
                     />
 
-                    <flux:input
+                    <flux:select
                         wire:model="status"
                         name="status"
                         id="status"
-                        type="text"
-                        required
                         :label="__('Status')"
-                        :value="$room->status"
                         :error="$errors->has('status')"
                         :error-message="$errors->first('status')"
-                    />
+                    >
+                        @foreach (RoomStatus::values() as $v)
+                            <option 
+                                value="{{ $v }}"
+                                {{ $room->status == $v ? 'selected' : '' }}
+                            >
+                                {{ efmt($v)  }}
+                            </option>
+                        @endforeach
+                    </flux:select>
 
             <!-- Submit and Cancel Buttons -->
             <div class="flex justify-between gap-4">

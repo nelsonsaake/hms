@@ -62,7 +62,7 @@
                     <tr class="hover:bg-neutral-50 dark:hover:bg-neutral-800/50">
                         <td class="px-4 py-3 text-sm text-gray-900 dark:text-gray-100">
                                 <a 
-                                    href="{{route('users.index', $v?->user_id)}}"
+                                    href="{{route('users.show', $v?->user_id)}}"
                                     class="underline text-blue-500"
                                 >
                                     {{$v->user?->name ?? idfmt($v->user_id)}}
@@ -70,7 +70,7 @@
                             </td>
                             <td class="px-4 py-3 text-sm text-gray-900 dark:text-gray-100">
                                 <a 
-                                    href="{{route('rooms.index', $v?->room_id)}}"
+                                    href="{{route('rooms.show', $v?->room_id)}}"
                                     class="underline text-blue-500"
                                 >
                                     {{$v->room?->name ?? idfmt($v->room_id)}}

@@ -24,11 +24,11 @@ class UpdateRoomRequest extends FormRequest
         
  
         return [
-            'type' => "required|string",
-            'price' => "required|numeric",
-            'beds' => "required|integer",
-            'description' => "required|string",
-            'status' => "required|string",
+            'type' => "sometimes|string",
+            'price' => "sometimes|numeric",
+            'beds' => "sometimes|integer",
+            'description' => "sometimes|string",
+            'status' => "sometimes|string",
         ];
     }
 }

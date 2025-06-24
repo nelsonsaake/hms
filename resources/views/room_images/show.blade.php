@@ -44,7 +44,12 @@
                         </dt>
                         <dd class="mt-1 text-sm text-gray-900 dark:text-gray-100 sm:col-span-2 sm:mt-0">
 
-                                {{ $roomImage->room_id?->name ?? idfmt($roomImage->room_id) }}
+                                <a 
+                                    href="{{route('rooms.show', $roomImage?->room_id)}}"
+                                    class="underline text-blue-500"
+                                >
+                                    {{$roomImage->room?->name ?? idfmt($roomImage->room_id)}}
+                                </a>
 
                         </dd>
                     </div>

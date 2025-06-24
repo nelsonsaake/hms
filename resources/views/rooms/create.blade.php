@@ -11,7 +11,7 @@
             </button>
         </div>
 
-        <form wire:submit.prevent="save" action="{{ route('rooms.store') }}" method="POST" class="space-y-6">
+        <form wire:submit.prevent="save" action="{{ route('rooms.store') }}" method="POST" class="space-y-6" >
             @csrf
 
                     <flux:select

@@ -22,7 +22,7 @@ class StoreRoomImageRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'path' => 'required|string',
+            'path' => 'required|file',
             'room_id' => 'required|string|exists:rooms,id',
         ];
     }

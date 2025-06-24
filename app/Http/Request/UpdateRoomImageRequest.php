@@ -24,8 +24,8 @@ class UpdateRoomImageRequest extends FormRequest
         
  
         return [
-            'path' => "required|string",
-            'room_id' => "required|string|exists:rooms,id",
+            'path' => "sometimes|file",
+            'room_id' => "sometimes|string|exists:rooms,id",
         ];
     }
 }

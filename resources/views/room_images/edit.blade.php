@@ -11,20 +11,18 @@
             </button>
         </div>
 
-        <form wire:submit.prevent="save" action="{{ route('room_images.update', $roomImage) }}" method="POST" class="space-y-6">
+        <form wire:submit.prevent="save" action="{{ route('room_images.update', $roomImage) }}"   enctype="multipart/form-data"  method="POST" class="space-y-6">
             @csrf
             @method('PUT')
 
-                    <flux:input
-                        wire:model="path"
-                        name="path"
-                        id="path"
-                        type="text"
-                        required
-                        :label="__('Path')"
-                        :value="$roomImage->path"
+                    <!-- Image Upload with Preview -->            
+                    <x-image-picker 
+                        label="Select Path" 
+                        name="path" 
+                        :src="$roomImage->url" 
                         :error="$errors->has('path')"
                         :error-message="$errors->first('path')"
+                        required 
                     />
 
                     <flux:select

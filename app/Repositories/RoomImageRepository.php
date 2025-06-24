@@ -12,7 +12,7 @@ use Illuminate\Support\Facades\Storage;
 class RoomImageRepository
 {
 
-    protected string $disk = "local";
+    protected string $disk = "public";
 
     /**
      * paginate: filter room image, and paginate
@@ -26,8 +26,8 @@ class RoomImageRepository
      * @return \Illuminate\Contracts\Pagination\LengthAwarePaginator
      */
     public function paginate(array $data)
-    {
-        return RoomImage::query()
+    { 
+        return RoomImage::query() 
             ->when(get($data, 'start_date'), function ($query) use ($data) {
                 $query->whereDate('created_at', '>=', Carbon::parse(get($data, 'start_date')));
             })
@@ -39,11 +39,11 @@ class RoomImageRepository
     }
 
     /**
-     * find: find roomImage
-     *
-     * @param string $roomImageId
-     * @return RoomImage|null
-     */
+    * find: find roomImage
+    *
+    * @param string $roomImageId
+    * @return RoomImage|null
+    */
     public function find(string $roomImageId): RoomImage|null
     {
         return RoomImage::find($roomImageId);
@@ -63,12 +63,12 @@ class RoomImageRepository
     }
 
     /**
-     * Store a file from the given data array under a specific key.
-     *
-     * @param array $data The input data array containing the file.
-     * @param string $key The key in the array where the file is expected.
-     * @return string|null The path to the stored file or null if no file was provided.
-     */
+    * Store a file from the given data array under a specific key.
+    *
+    * @param array $data The input data array containing the file.
+    * @param string $key The key in the array where the file is expected.
+    * @return string|null The path to the stored file or null if no file was provided.
+    */
     public function storeFile(array $data, string $key): string|null
     {
         $file = Arr::get($data, $key);
@@ -76,7 +76,7 @@ class RoomImageRepository
             return null;
         }
 
-        return $file->store('uploads/room_images', $this->disk);
+        return Storage::disk($this->disk)->putFile('uploads/room_images', $this->disk);
     }
 
     /**
@@ -110,7 +110,7 @@ class RoomImageRepository
 
         $data['path'] = $this->storeFile($data, 'path');
         if ($data['path']) {
-            $this->deleteFile($roomImage->path);
+            $this->deleteFile($roomImage->path); 
         }
 
         $roomImage->update($data);
@@ -132,3 +132,4 @@ class RoomImageRepository
         $roomImage->delete();
     }
 }
+

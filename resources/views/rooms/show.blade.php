@@ -39,7 +39,7 @@
                             {{ __('Type') }}
                         </dt>
                         <dd class="mt-1 text-sm text-gray-900 dark:text-gray-100 sm:col-span-2 sm:mt-0">
-                            efmt($v->type)
+                            {{ efmt($room->type) }}
 
                         </dd>
                     </div>
@@ -82,7 +82,7 @@
                             {{ __('Status') }}
                         </dt>
                         <dd class="mt-1 text-sm text-gray-900 dark:text-gray-100 sm:col-span-2 sm:mt-0">
-                            efmt($v->status)
+                            {{ efmt($room->status) }}
 
                         </dd>
                     </div>

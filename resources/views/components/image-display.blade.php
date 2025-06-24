@@ -8,12 +8,11 @@
     $hasImage = !empty($src);
 
     $sizeClasses = [
-        'xxs' => 'w-10 h-10',  // 40px
-        'xs' => 'w-16 h-16',  // 64px
-        'sm' => 'w-24 h-24',  // 96px
-        'md' => 'w-40 h-40',  // 160px
-        'lg' => 'w-60 h-60',  // 240px
-        'xl' => 'w-80 h-80',  // 320px
+        'xs' => 'min-w-16 w-16 min-h-16 h-16',  // 64px
+        'sm' => 'min-w-24 w-24 min-h-24 h-24',  // 96px
+        'md' => 'min-w-40 w-40 min-h-40 h-40',  // 160px
+        'lg' => 'min-w-60 w-60 min-h-60 h-60',  // 240px
+        'xl' => 'min-w-80 w-80 min-h-80 h-80',  // 320px
     ];
 
     $imageClass = $sizeClasses[$size] ?? $sizeClasses['md'];

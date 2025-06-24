@@ -11,7 +11,7 @@
             </button>
         </div>
 
-        <form wire:submit.prevent="save" action="{{ route('users.update', $user) }}" method="POST" class="space-y-6">
+        <form wire:submit.prevent="save" action="{{ route('users.update', $user) }}"   method="POST" class="space-y-6">
             @csrf
             @method('PUT')
 
