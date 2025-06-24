@@ -3,6 +3,18 @@
         {{ __('Update Room Image') }}
     </h2>
 
+    @if(session('success'))
+        <div class="p-4 mt-2 mb-4 text-green-700 bg-green-100 rounded-lg">
+            {{ session('success') }}
+        </div>
+    @endif
+
+    @if(session('error'))
+        <div class="p-4 mt-2 mb-4 text-red-700 bg-red-100 rounded-lg">
+            {{ session('error') }}
+        </div>
+    @endif
+
     <div class="flex w-full flex-1 flex-col gap-4 rounded-xl mt-8">
         <div class="flex items-center justify-between py-4 gap-4 flex-wrap">
             <button type="button" onclick="history.back()"

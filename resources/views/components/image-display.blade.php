@@ -30,8 +30,8 @@
                 alt="Image"
                 class="{{ $imageClass }} rounded-lg border border-gray-400 object-cover" />
         @else
-            <div class="{{ $imageClass }} flex items-center justify-center rounded-lg border border-dashed border-gray-400 text-gray-400 dark:text-neutral-500">
-                {{ __('No image available') }}
+            <div class="{{ $imageClass }} flex items-center justify-center rounded-lg border border-dashed border-gray-400 text-gray-400 dark:text-neutral-500 p-2 text-xs">
+                {{ __('Not Available') }}
             </div>
         @endif
     </div>

@@ -1,16 +1,19 @@
 <?php
 
-declare(strict_types=1);
-
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Model;
+// use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Relations\HasMany;use Illuminate\Support\Str;
+use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Notifications\Notifiable;
+use Illuminate\Support\Str;
+use Spatie\Permission\Traits\HasRoles;
 
-class User extends Model
+class User extends Authenticatable
 {
-    use HasFactory;
+    /** @use HasFactory<\Database\Factories\UserFactory> */
+    use HasRoles, HasFactory, Notifiable;
 
     // Disable auto-incrementing
     public $incrementing = false;
@@ -23,6 +26,8 @@ class User extends Model
 
     /**
      * The attributes that are mass assignable.
+     *
+     * @var list<string>
      */
     protected $fillable = [
         'name',
@@ -64,17 +69,12 @@ class User extends Model
             ->map(fn ($word) => Str::substr($word, 0, 1))
             ->implode('');
     }
-
-    public function bookings(): HasMany
-    {
-        return $this->hasMany(Booking::class, 'user_id', 'id');
-    }
     
     protected static function boot()
     {
         parent::boot();
 
-        // Automatically generate UUID when creating a new User
+        // Automatically generate UUID when creating a new user
         static::creating(function ($model) {
             $model->id = Str::uuid();
         });

@@ -7,6 +7,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 
 class RoomImage extends Model
@@ -51,8 +52,8 @@ class RoomImage extends Model
 
     public function getUrlAttribute()
     {
-        if ($this->path) {
-            return url($this->path);
+        if (fileExists($this->path)) {
+            return Storage::url($this->path);
         }
         return null;
     }

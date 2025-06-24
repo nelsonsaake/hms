@@ -33,7 +33,7 @@ class RoomImageSeederService
         foreach ($files as $file) {
             $uploadedFile = new LaravelFile($file->getRealPath());
             $path = Storage::disk('public')->putFile("uploads/rooms/{$roomTypeDir}", $uploadedFile);
-            $storedPaths[] = Storage::url($path);
+            $storedPaths[] = $path;
         }
 
         return $storedPaths;
