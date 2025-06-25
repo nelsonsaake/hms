@@ -4,14 +4,21 @@ use App\Enums\RoomType;
 use App\Models\Room;
 use App\Models\RoomImage;
 use App\Services\RoomImageSeederService;
+use App\Services\RoomSeederService;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Route;
 use Livewire\Volt\Volt;
 
 Route::get('/', function () {
-    $roomImages = RoomImage::inRandomOrder()->get();
-    $rooms = Room::with('roomImages')->inRandomOrder()->where('status', 'available')->get();
-    return view('welcome', compact('rooms', 'roomImages'));
+
+    $rooms = Room::with('roomImages')
+        ->where('status', 'available')
+        ->get();
+
+    return view(
+        'welcome',
+        compact('rooms')
+    );
 })->name('home');
 
 Route::middleware(['auth', 'verified'])->get('/dashboard', function () {
@@ -19,8 +26,12 @@ Route::middleware(['auth', 'verified'])->get('/dashboard', function () {
     return redirect()->route('bookings.index');
 })->name('dashboard');
 
-Route::any('/test', function (RoomImageSeederService $roomImageSeederService) {
-    $roomImageSeederService->resetRoomImages();
+Route::any('/test', function (
+    RoomSeederService $roomSeederService,
+    RoomImageSeederService $roomImageSeederService,
+) {
+    $roomSeederService->run();
+    $roomImageSeederService->run();
 });
 
 Route::middleware(['auth'])->group(function () {

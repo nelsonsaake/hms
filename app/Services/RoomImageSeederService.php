@@ -69,7 +69,7 @@ class RoomImageSeederService
      *
      * @return void
      */
-    public function resetRoomImages(): void
+    public function run(): void
     {
         // Clear all existing room images
         RoomImage::truncate();
