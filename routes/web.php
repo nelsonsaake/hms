@@ -9,8 +9,9 @@ use Illuminate\Support\Facades\Route;
 use Livewire\Volt\Volt;
 
 Route::get('/', function () {
-    // return view('welcome');
-    return redirect()->route('dashboard');
+    $roomImages = RoomImage::inRandomOrder()->get();
+    $rooms = Room::with('roomImages')->inRandomOrder()->where('status', 'available')->get();
+    return view('welcome', compact('rooms', 'roomImages'));
 })->name('home');
 
 Route::middleware(['auth', 'verified'])->get('/dashboard', function () {

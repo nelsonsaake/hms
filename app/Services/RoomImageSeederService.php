@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Services;
 
+use App\Enums\RoomType;
 use App\Models\Room;
 use App\Models\RoomImage;
 use Illuminate\Support\Facades\File;
@@ -76,9 +77,13 @@ class RoomImageSeederService
         // Fetch all rooms once
         $rooms = Room::all();
 
+        // Clear files from disk
+        foreach(RoomType::values() as $roomType){
+            $this->clearUploadedRoomFiles($roomType);
+        }
+
+        // we seed the system 
         foreach ($rooms as $room) {
-            // Clear files from disk
-            $this->clearUploadedRoomFiles($room->type);
 
             // Simulate uploads
             $paths = $this->simulateUploadRooomPhoto($room->type);
