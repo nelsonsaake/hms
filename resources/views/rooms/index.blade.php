@@ -127,7 +127,7 @@
             </table>
         </div>
         <!-- Pagination Links -->
-        <div class="px-4 py-3 bg-white border-t border-gray-200 dark:bg-gray-800 dark:border-gray-700 sm:px-6">
+        <div class="px-4 py-3 sm:px-6">
            {{ $rooms->links() }}
         </div>
     </div>
