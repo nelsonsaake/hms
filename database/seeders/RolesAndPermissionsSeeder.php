@@ -21,5 +21,15 @@ class RolesAndPermissionsSeeder extends Seeder
         foreach (Roles::values() as $role) {
             Role::firstOrCreate(attributes: ['name' => $role]);
         }
+        
+        // Add Permissions to Roles
+
+        // Assign User's Permissions to the Roles::user
+        // $user = Role::findByName(Roles::USER);
+        // $user->givePermissionTo(Permissions::userPermissions());
+
+        // Add all Permissions to Roles::administrator
+        $administrator = Role::findByName(Roles::ADMINISTRATOR);
+        $administrator->givePermissionTo(Permissions::values());
     }
 }

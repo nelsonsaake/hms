@@ -28,7 +28,7 @@ class RoomController extends Controller
      */
     public function index(Request $request)
     {
-      //  Gate::authorize('viewAny', Room::class);
+        Gate::authorize('viewAny', Room::class);
 
         try {  
             $rooms = $this->roomRepository->paginate($request->all());
@@ -48,7 +48,7 @@ class RoomController extends Controller
      */
     public function create(Request $request)
     {
-       // Gate::authorize('create', Room::class);
+        Gate::authorize('create', Room::class);
 
         try {
 
@@ -70,7 +70,7 @@ class RoomController extends Controller
      */
     public function store(StoreRoomRequest $request)
     {
-        // Gate::authorize('create', Room::class);
+        Gate::authorize('create', Room::class);
 
         try { 
             $room = $this->roomRepository->create($request->all()); 
@@ -92,7 +92,7 @@ class RoomController extends Controller
      */
     public function show(Room $room)
     {
-        // Gate::authorize('view', $room);
+        Gate::authorize('view', $room);
 
         return view(
             'rooms.show', 
@@ -108,7 +108,7 @@ class RoomController extends Controller
      */
     public function edit(Room $room)
     {
-        // Gate::authorize('view', $room);
+        Gate::authorize('view', $room);
 
         try {
 
@@ -132,7 +132,7 @@ class RoomController extends Controller
      */
     public function update(UpdateRoomRequest $request, Room $room)
     {
-        // Gate::authorize('update', $room);
+        Gate::authorize('update', $room);
 
         try {
             $room = $this->roomRepository->update($room, $request->all());
@@ -155,7 +155,7 @@ class RoomController extends Controller
      */
     public function destroy(Room $room)
     {
-        // Gate::authorize('delete', $room);
+        Gate::authorize('delete', $room);
 
         try {
             $this->roomRepository->destroy($room);

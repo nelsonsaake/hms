@@ -1,14 +1,13 @@
 <x-layouts.app :title="__('Create Room Image')">
-    <h2 class="text-xl font-semibold leading-tight text-gray-800 dark:text-gray-200 py-4 uppercase border-b-2 border-b-stone-700">
+    <h2 class="text-xl font-semibold leading-tight text-gray-800 dark:text-gray-200 py-4 uppercase border-b-2 border-b-gray-200 dark:border-b-neutral-700">
         {{ __('Create Room Image') }}
     </h2>
 
     <div class="flex w-full flex-1 flex-col gap-4 rounded-xl mt-8">
         <div class="flex items-center justify-between py-4 gap-4 flex-wrap">
-            <button type="button" onclick="history.back()"
-                class="inline-flex items-center rounded-lg bg-blue-600 px-4 py-2 text-sm font-medium text-gray-800 shadow hover:bg-blue-500 dark:bg-neutral-700 dark:text-white dark:hover:bg-neutral-600">
-                ← Back
-            </button>
+            <x-button color="blue" onclick="history.back()">
+                ← {{ __('Back')}}
+            </x-button>
         </div>
 
         <form wire:submit.prevent="save" action="{{ route('room_images.store') }}" method="POST" class="space-y-6"  enctype="multipart/form-data" >

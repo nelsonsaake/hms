@@ -28,7 +28,7 @@ class UserController extends Controller
      */
     public function index(Request $request)
     {
-      //  Gate::authorize('viewAny', User::class);
+        Gate::authorize('viewAny', User::class);
 
         try {  
             $users = $this->userRepository->paginate($request->all());
@@ -48,7 +48,7 @@ class UserController extends Controller
      */
     public function create(Request $request)
     {
-       // Gate::authorize('create', User::class);
+        Gate::authorize('create', User::class);
 
         try {
 
@@ -70,7 +70,7 @@ class UserController extends Controller
      */
     public function store(StoreUserRequest $request)
     {
-        // Gate::authorize('create', User::class);
+        Gate::authorize('create', User::class);
 
         try { 
             $user = $this->userRepository->create($request->all()); 
@@ -92,7 +92,7 @@ class UserController extends Controller
      */
     public function show(User $user)
     {
-        // Gate::authorize('view', $user);
+        Gate::authorize('view', $user);
 
         return view(
             'users.show', 
@@ -108,7 +108,7 @@ class UserController extends Controller
      */
     public function edit(User $user)
     {
-        // Gate::authorize('view', $user);
+        Gate::authorize('view', $user);
 
         try {
 
@@ -132,7 +132,7 @@ class UserController extends Controller
      */
     public function update(UpdateUserRequest $request, User $user)
     {
-        // Gate::authorize('update', $user);
+        Gate::authorize('update', $user);
 
         try {
             $user = $this->userRepository->update($user, $request->all());
@@ -155,7 +155,7 @@ class UserController extends Controller
      */
     public function destroy(User $user)
     {
-        // Gate::authorize('delete', $user);
+        Gate::authorize('delete', $user);
 
         try {
             $this->userRepository->destroy($user);

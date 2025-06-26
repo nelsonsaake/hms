@@ -22,3 +22,8 @@ clear:
 	php artisan view:clear
 	php artisan route:clear
 	php artisan optimize:clear
+	php artisan permission:cache-reset
+
+raps:
+	php artisan db:seed --class=RolesAndPermissionsSeeder
+	php artisan db:seed --class=UserSeeder

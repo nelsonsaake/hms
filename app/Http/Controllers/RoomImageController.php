@@ -29,7 +29,7 @@ class RoomImageController extends Controller
      */
     public function index(Request $request)
     {
-      //  Gate::authorize('viewAny', RoomImage::class);
+        Gate::authorize('viewAny', RoomImage::class);
 
         try {  
             $roomImages = $this->roomImageRepository->paginate($request->all());
@@ -49,7 +49,7 @@ class RoomImageController extends Controller
      */
     public function create(Request $request)
     {
-       // Gate::authorize('create', RoomImage::class);
+        Gate::authorize('create', RoomImage::class);
 
         try { 
             $rooms = Room::all();
@@ -73,7 +73,7 @@ class RoomImageController extends Controller
      */
     public function store(StoreRoomImageRequest $request)
     {
-        // Gate::authorize('create', RoomImage::class);
+        Gate::authorize('create', RoomImage::class);
 
         try { 
             $roomImage = $this->roomImageRepository->create($request->all()); 
@@ -95,7 +95,7 @@ class RoomImageController extends Controller
      */
     public function show(RoomImage $roomImage)
     {
-        // Gate::authorize('view', $roomImage);
+        Gate::authorize('view', $roomImage);
 
         return view(
             'room_images.show', 
@@ -111,7 +111,7 @@ class RoomImageController extends Controller
      */
     public function edit(RoomImage $roomImage)
     {
-        // Gate::authorize('view', $roomImage);
+        Gate::authorize('view', $roomImage);
 
         try { 
             $rooms = Room::all();
@@ -136,7 +136,7 @@ class RoomImageController extends Controller
      */
     public function update(UpdateRoomImageRequest $request, RoomImage $roomImage)
     {
-        // Gate::authorize('update', $roomImage);
+        Gate::authorize('update', $roomImage);
 
         try {
             $roomImage = $this->roomImageRepository->update($roomImage, $request->all());
@@ -159,7 +159,7 @@ class RoomImageController extends Controller
      */
     public function destroy(RoomImage $roomImage)
     {
-        // Gate::authorize('delete', $roomImage);
+        Gate::authorize('delete', $roomImage);
 
         try {
             $this->roomImageRepository->destroy($roomImage);

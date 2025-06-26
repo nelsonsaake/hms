@@ -16,20 +16,23 @@
     <script src="https://cdn.tailwindcss.com"></script>
 </head>
 
-<body class="bg-gray-50 text-gray-900 font-instrument-sans">
+<body 
+    class="bg-gray-100 text-gray-900 font-instrument-sans bg-repeat" 
+    style="background-image: url('/bg.jpg'); background-size: 18%"
+>
 
     <!-- Header -->
     <header class="bg-white shadow">
         <div class="container mx-auto px-6 py-4 flex items-center justify-between">
-            <h1 class="text-2xl font-bold">Blue Top Hotel</h1>
+            <h1 class="text-2xl font-bold text-blue-900">Blue Top Hotel</h1>
             @if (Route::has('login'))
                 <nav class="space-x-6 text-sm">
                     @auth
-                        <a href="{{ url('/dashboard') }}" class="text-gray-600 hover:text-blue-600">Dashboard</a>
+                        <a href="{{ url('/dashboard') }}" class="text-gray-600 hover:text-blue-950">Dashboard</a>
                     @else
-                        <a href="{{ route('login') }}" class="text-gray-600 hover:text-blue-600">Log in</a>
+                        <a href="{{ route('login') }}" class="text-gray-600 hover:text-blue-950">Log in</a>
                         @if (Route::has('register'))
-                            <a href="{{ route('register') }}" class="text-gray-600 hover:text-blue-600">Register</a>
+                            <a href="{{ route('register') }}" class="text-gray-600 hover:text-blue-950">Register</a>
                         @endif
                     @endauth
                 </nav>
@@ -46,7 +49,7 @@
                 Experience modern comfort and unforgettable stays in every room at Blue Top Hotel.
             </p>
             <a href="#rooms"
-                class="bg-blue-600 hover:bg-blue-700 text-white px-8 py-3 rounded-full font-medium transition">
+                class="bg-blue-900 hover:bg-blue-950 text-white px-8 py-3 text-sm rounded-full font-medium transition">
                 View Rooms
             </a>
         </div>
@@ -55,19 +58,19 @@
     <!-- Rooms Showcase -->
     <section id="rooms" class="py-16">
         <div class="container mx-auto px-6">
-            <h3 class="text-3xl md:text-4xl font-semibold text-center mb-12">Our Rooms</h3>
+            <h3 class="text-3xl md:text-4xl font-semibold text-center mb-12 text-blue-900">Our Rooms</h3>
             <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
                 @forelse ($rooms as $room)
                     <div class="rounded-xl overflow-hidden shadow-md hover:shadow-xl transition bg-white">
                         <img loading="lazy" src="{{ $room->roomImages?->first()?->url ?? '/images/default-room.jpg' }}"
                             alt="{{ $room->type }}" class="w-full h-56 object-cover">
-                        <div class="p-6">
+                        <div class="p-6 flex flex-col justify-between">
                             <h4 class="text-xl font-semibold capitalize">{{ str_replace('_', ' ', $room->type) }}</h4>
                             <p class="text-gray-600 mt-2 mb-4 text-sm">{{ $room->description }}</p>
                             <div class="flex items-center justify-between">
-                                <span class="text-xl font-bold">${{ number_format($room->price, 2) }}</span>
+                                <span class="text-xl font-bold">GH₵{{ nfmt($room->price) }}</span>
                                 <a href="{{ route('bookings.create', $room->id) }}"
-                                    class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-full font-medium transition">
+                                    class="bg-blue-900 hover:bg-blue-950 text-white text-sm px-4 py-2 rounded-full font-medium transition">
                                     Book Now
                                 </a>
                             </div>

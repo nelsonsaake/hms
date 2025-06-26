@@ -18,18 +18,15 @@
     <div class="flex w-full flex-1 flex-col gap-4 rounded-xl mt-8">
         <div class="flex items-center justify-between px-2 py-4 gap-4 flex-wrap">
             <!-- Left Side: Back Button -->
-            <button
-                type="button"
-                onclick="history.back()"
-                class="inline-flex items-center rounded-lg bg-gray-200 px-4 py-2 text-sm font-medium text-gray-800 shadow hover:bg-gray-300 dark:bg-neutral-700 dark:text-white dark:hover:bg-neutral-600">
-                ← Back
-            </button>
+            <x-button onclick="history.back()">
+                ← {{ __('Back')}}
+            </x-button>
 
             <!-- Middle: Search Input -->
             <input
                 type="text"
                 placeholder="Search..."
-                class="flex-1 min-w-[200px] rounded-lg border border-neutral-300 bg-white px-4 py-2 text-sm text-gray-900 shadow-sm focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500 dark:border-neutral-600 dark:bg-neutral-800 dark:text-white" />
+                class="flex-1 min-w-[200px] rounded-lg border border-neutral-300 bg-white px-4 py-2 text-sm text-neutral-700 shadow-sm focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500 dark:border-neutral-600 dark:bg-neutral-800 dark:text-white" />
 
             <!-- Right Side: Add Button -->
             <a
@@ -40,9 +37,9 @@
             </a>
         </div>
         <div class="overflow-x-auto rounded-xl border border-neutral-200 dark:border-neutral-700">
-            <table class="min-w-full divide-y divide-neutral-200 dark:divide-neutral-700 w-full">
-                <thead class="dark:bg-neutral-100 bg-neutral-800">
-                    <tr class="*:px-4 *:py-3 *:text-left *:text-sm *:font-semibold dark:text-gray-700 text-gray-200">
+            <table class="min-w-full divide-y divide-neutral-200 dark:divide-neutral-700 w-full table-auto">
+                <thead class="dark:bg-neutral-100 bg-gray-50">
+                    <tr class="*:px-4 *:py-3 *:text-left *:text-sm *:font-semibold dark:text-gray-700 text-gray-800">
                         <th>Type</th>
                         <th>Price</th>
                         <th>Beds</th>
@@ -57,19 +54,19 @@
 
                 @forelse ($rooms as $v)
                     <tr class="hover:bg-neutral-50 dark:hover:bg-neutral-800/50">
-                        <td class="px-4 py-3 text-sm text-gray-900 dark:text-gray-100">
+                        <td class="px-4 py-3 text-sm text-neutral-700 dark:text-gray-100">
                                 {{efmt($v->type)}}
                             </td>
-                            <td class="px-4 py-3 text-sm text-gray-900 dark:text-gray-100">
+                            <td class="px-4 py-3 text-sm text-neutral-700 dark:text-gray-100">
                                 {{nfmt($v->price)}}
                             </td>
-                            <td class="px-4 py-3 text-sm text-gray-900 dark:text-gray-100">
+                            <td class="px-4 py-3 text-sm text-neutral-700 dark:text-gray-100">
                                 {{$v->beds}}
                             </td>
-                            <td class="px-4 py-3 text-sm text-gray-900 dark:text-gray-100">
+                            <td class="px-4 py-3 text-sm text-neutral-700 dark:text-gray-100">
                                 {{$v->description}}
                             </td>
-                            <td class="px-4 py-3 text-sm text-gray-900 dark:text-gray-100">
+                            <td class="px-4 py-3 text-sm text-neutral-700 dark:text-gray-100">
                                 {{efmt($v->status)}}
                             </td>
 

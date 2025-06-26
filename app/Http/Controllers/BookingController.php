@@ -30,7 +30,7 @@ class BookingController extends Controller
      */
     public function index(Request $request)
     {
-      //  Gate::authorize('viewAny', Booking::class);
+        Gate::authorize('viewAny', Booking::class);
 
         try {  
             $bookings = $this->bookingRepository->paginate($request->all());
@@ -50,7 +50,7 @@ class BookingController extends Controller
      */
     public function create(Request $request)
     {
-       // Gate::authorize('create', Booking::class);
+        Gate::authorize('create', Booking::class);
 
         try { 
             $users = User::all();
@@ -75,7 +75,7 @@ class BookingController extends Controller
      */
     public function store(StoreBookingRequest $request)
     {
-        // Gate::authorize('create', Booking::class);
+        Gate::authorize('create', Booking::class);
 
         try { 
             $booking = $this->bookingRepository->create($request->all()); 
@@ -97,7 +97,7 @@ class BookingController extends Controller
      */
     public function show(Booking $booking)
     {
-        // Gate::authorize('view', $booking);
+        Gate::authorize('view', $booking);
 
         return view(
             'bookings.show', 
@@ -113,7 +113,7 @@ class BookingController extends Controller
      */
     public function edit(Booking $booking)
     {
-        // Gate::authorize('view', $booking);
+        Gate::authorize('view', $booking);
 
         try { 
             $users = User::all();
@@ -139,7 +139,7 @@ class BookingController extends Controller
      */
     public function update(UpdateBookingRequest $request, Booking $booking)
     {
-        // Gate::authorize('update', $booking);
+        Gate::authorize('update', $booking);
 
         try {
             $booking = $this->bookingRepository->update($booking, $request->all());
@@ -162,7 +162,7 @@ class BookingController extends Controller
      */
     public function destroy(Booking $booking)
     {
-        // Gate::authorize('delete', $booking);
+        Gate::authorize('delete', $booking);
 
         try {
             $this->bookingRepository->destroy($booking);
