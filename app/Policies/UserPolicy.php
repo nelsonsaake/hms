@@ -6,7 +6,9 @@ namespace App\Policies;
 
 use App\Models\User;
 use Illuminate\Auth\Access\HandlesAuthorization;
-use App\Enums\Permissions;class UserPolicy
+use App\Enums\Permissions;
+
+class UserPolicy
 {
     use HandlesAuthorization;
 

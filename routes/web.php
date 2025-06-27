@@ -1,39 +1,47 @@
 <?php
 
-use App\Enums\RoomType;
-use App\Models\Room;
-use App\Models\RoomImage;
-use App\Services\RoomImageSeederService;
-use App\Services\RoomSeederService;
-use Illuminate\Support\Facades\File;
+use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\ReservationController;
+use App\Http\Controllers\TestingController;
+use App\Http\Controllers\WelcomeController;
 use Illuminate\Support\Facades\Route;
 use Livewire\Volt\Volt;
 
-Route::get('/', function () {
+/**
+ * Welcome Controller
+ */
+Route::get('/', WelcomeController::class)->name('home');
 
-    $rooms = Room::with('roomImages')
-        ->where('status', 'available')
-        ->get();
+/**
+ * Dashboard
+ */
+Route::middleware(['auth', 'verified'])
+    ->controller(DashboardController::class)
+    ->name('dashboard')
+    ->group(function () {
+        Route::get('/dashboard', 'index');
+    });
 
-    return view(
-        'welcome',
-        compact('rooms')
-    );
-})->name('home');
-
-Route::middleware(['auth', 'verified'])->get('/dashboard', function () {
-    // return view('dashboard');
-    return redirect()->route('bookings.index');
-})->name('dashboard');
-
-Route::any('/test', function (
-    RoomSeederService $roomSeederService,
-    RoomImageSeederService $roomImageSeederService,
-) {
-    $roomSeederService->run();
-    $roomImageSeederService->run();
+/**
+ * Self Service or Reservation
+ */
+Route::middleware(['auth'])->group(function () {
+    Route::resource('reservations', ReservationController::class)->names('reservations');
 });
 
+/**
+ * for Seeding Room and Room Images
+ */
+Route::prefix('testing')
+    ->name('testing.')
+    ->controller(TestingController::class)
+    ->group(function () {
+        Route::get('/seed', 'seed');
+    });
+
+/**
+ * Settings
+ */
 Route::middleware(['auth'])->group(function () {
     Route::redirect('settings', 'settings/profile');
 

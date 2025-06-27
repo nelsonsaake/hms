@@ -1,6 +1,8 @@
 <?php
 
+use App\Models\User;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 
 /**
@@ -191,4 +193,19 @@ function idfmt(string $uuid): string
 function fileExists(string $path): bool
 {
     return Storage::disk('public')->exists($path);
+}
+
+/**
+ * Gets Auth::user() and casts it to \App\Models\User
+ *
+ * @return User|null
+ */
+function authUser()
+{
+    $user = Auth::user();
+    if ($user instanceof User) {
+        return $user;
+    }
+
+    return null;
 }

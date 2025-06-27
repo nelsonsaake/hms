@@ -12,10 +12,33 @@
             </a>
 
             <flux:navlist variant="outline">
-                <flux:navlist.group :heading="__('Resources')" class="grid">
-                    <!-- <flux:navlist.item icon="home" :href="route('dashboard')" :current="request()->routeIs('dashboard')" wire:navigate>{{ __('Dashboard') }}</flux:navlist.item> -->
-                    <x-nav-items.platform/>
+                
+                @hasrole(Roles::ADMINISTRATOR) 
+                    <flux:navlist.group :heading="__('Dashboard')" class="grid">
+                        <!-- <flux:navlist.item icon="home" 
+                            :href="route('dashboard')" 
+                            :current="request()->routeIs('dashboard')" 
+                            wire:navigate>
+                            {{ __('Dashboard') }}
+                        </flux:navlist.item> -->
+                    </flux:navlist.group> 
+                @endhasrole
+
+                 <flux:navlist.group :heading="__('Self Service')" class="grid">
+                    <x-nav-items.reservations/>
                 </flux:navlist.group>
+                
+                @canany([
+                    Permissions::VIEW_ANY_BOOKING,
+                    Permissions::VIEW_ANY_ROOM,
+                    Permissions::VIEW_ANY_USER,
+                    Permissions::VIEW_ANY_ROOM_IMAGE,
+                ]) 
+                    <flux:navlist.group :heading="__('Resources')" class="grid">
+                        <x-nav-items.platform/>
+                    </flux:navlist.group>
+                @endcanany
+
             </flux:navlist>
 
             <flux:spacer /> 

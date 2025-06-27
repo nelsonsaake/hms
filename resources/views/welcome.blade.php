@@ -69,7 +69,7 @@
                             <p class="text-gray-600 mt-2 mb-4 text-sm">{{ $room->description }}</p>
                             <div class="flex items-center justify-between">
                                 <span class="text-xl font-bold">GH₵{{ nfmt($room->price) }}</span>
-                                <a href="{{ route('bookings.create', $room->id) }}"
+                                <a href="{{ route('reservations.create', $room->id) }}"
                                     class="bg-blue-900 hover:bg-blue-950 text-white text-sm px-4 py-2 rounded-full font-medium transition">
                                     Book Now
                                 </a>
