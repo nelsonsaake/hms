@@ -12,8 +12,7 @@ return new class extends Migration
     public function up(): void
     {
         //
-        Schema::create('room_images', function (Blueprint $table) { 
-            // $table->uuid('id')->primary();
+        Schema::create('room_images', function (Blueprint $table) {  
             $table->uuid('id')->primary(); 
             $table->string('path'); 
             $table->string('room_id')->constrained('rooms');

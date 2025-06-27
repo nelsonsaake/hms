@@ -1,8 +1,20 @@
-<x-layouts.app :title="__('Create Booking')">
+<x-layouts.app :title="__('Create Reservation')">
     <h2 class="text-xl font-semibold leading-tight text-gray-800 dark:text-gray-200 py-4 uppercase border-b-2 border-b-gray-200 dark:border-b-neutral-700">
-        {{ __('Create Booking') }}
+        {{ __('Create Reservation') }}
     </h2>
 
+    @if (session('success'))
+        <div class="p-4 mt-2 mb-4 text-green-700 bg-green-100 rounded-lg">
+            {{ session('success') }}
+        </div>
+    @endif
+
+    @if (session('error'))
+        <div class="p-4 mt-2 mb-4 text-red-700 bg-red-100 rounded-lg">
+            {{ session('error') }}
+        </div>
+    @endif
+    
     <div class="flex w-full flex-1 flex-col gap-4 rounded-xl mt-8">
         <div class="flex items-center justify-between py-4 gap-4 flex-wrap">
             <x-button color="blue" onclick="history.back()">
@@ -12,25 +24,9 @@
 
         <form wire:submit.prevent="save" action="{{ route('reservations.store') }}" method="POST" class="space-y-6" >
             @csrf
-
-                    <flux:select
-                        wire:model="user_id"
-                        name="user_id"
-                        id="user_id"
-                        :label="__('User')"
-                        :error="$errors->has('user_id')"
-                        :error-message="$errors->first('user_id')"
-                    >
-                        @foreach ($users as $v)
-                            <option 
-                                value="{{ $v->id }}"
-                                {{ old('user_id') == $v->id ? 'selected' : '' }}
-                            >
-                                {{ $v->name ?? idfmt($v->id) }}
-                            </option>
-                        @endforeach
-                    </flux:select>
-
+                    @php
+                        $roomId = old('room_id', request('room_id'));
+                    @endphp
                     <flux:select
                         wire:model="room_id"
                         name="room_id"
@@ -42,51 +38,9 @@
                         @foreach ($rooms as $v)
                             <option 
                                 value="{{ $v->id }}"
-                                {{ old('room_id') == $v->id ? 'selected' : '' }}
+                                {{ $roomId == $v->id ? 'selected' : '' }}
                             >
-                                {{ $v->name ?? idfmt($v->id) }}
-                            </option>
-                        @endforeach
-                    </flux:select>
-
-                        <flux:input
-                            :label="__('Check In')"
-                            wire:model="check_in"
-                            id="check_in"
-                            name="check_in"
-                            type="date"
-                            required
-                            value="{{ old('check_in', hdfmt(now())) }}"
-                            :error="$errors->has('check_in')"
-                            :error-message="$errors->first('check_in')"
-                        />
-
-                        <flux:input
-                            :label="__('Check Out')"
-                            wire:model="check_out"
-                            id="check_out"
-                            name="check_out"
-                            type="date"
-                            required
-                            value="{{ old('check_out', hdfmt(now())) }}"
-                            :error="$errors->has('check_out')"
-                            :error-message="$errors->first('check_out')"
-                        />
-
-                    <flux:select
-                        wire:model="status"
-                        name="status"
-                        id="status"
-                        :label="__('Status')"
-                        :error="$errors->has('status')"
-                        :error-message="$errors->first('status')"
-                    >
-                        @foreach (BookingStatus::values() as $v)
-                            <option 
-                                value="{{ $v }}"
-                                {{ old('status') == $v ? 'selected' : '' }}
-                            >
-                                {{ efmt($v)  }}
+                                Room {{ $v->number }}, {{ efmt($v->type) }}, Floor {{ $v->floor }}
                             </option>
                         @endforeach
                     </flux:select>
@@ -98,7 +52,7 @@
                         name="guest_name"
                         type="text"
                         required
-                        value="{{ old('guest_name') }}"
+                        value="{{ old('guest_name', authUser()->name) }}"
                         :error="$errors->has('guest_name')"
                         :error-message="$errors->first('guest_name')"
                     />
@@ -110,7 +64,7 @@
                         name="guest_email"
                         type="text"
                         required
-                        value="{{ old('guest_email') }}"
+                        value="{{ old('guest_email', authUser()->email) }}"
                         :error="$errors->has('guest_email')"
                         :error-message="$errors->first('guest_email')"
                     />
@@ -125,6 +79,28 @@
                         value="{{ old('guest_phone') }}"
                         :error="$errors->has('guest_phone')"
                         :error-message="$errors->first('guest_phone')"
+                    />
+
+                    <flux:input
+                        :label="__('From Date (Optional)')"
+                        wire:model="from_date"
+                        id="from_date"
+                        name="from_date"
+                        type="date" 
+                        value="{{ old('from_date') }}"
+                        :error="$errors->has('from_date')"
+                        :error-message="$errors->first('from_date')"
+                    />
+
+                    <flux:input
+                        :label="__('To Date (Optional)')"
+                        wire:model="to_date"
+                        id="to_date"
+                        name="to_date"
+                        type="date" 
+                        value="{{ old('to_date') }}"
+                        :error="$errors->has('to_date')"
+                        :error-message="$errors->first('to_date')"
                     />
 
             <!-- Submit and Cancel Buttons -->

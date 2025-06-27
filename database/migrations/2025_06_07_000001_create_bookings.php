@@ -12,19 +12,18 @@ return new class extends Migration
     public function up(): void
     {
         //
-        Schema::create('bookings', function (Blueprint $table) { 
-            // $table->uuid('id')->primary();
+        Schema::create('bookings', function (Blueprint $table) {  
             $table->uuid('id')->primary(); 
             $table->foreignUuid('user_id')->constrained('users'); 
             $table->string('room_id')->constrained('rooms'); 
-            $table->timestamp('check_in'); 
-            $table->timestamp('check_out'); 
+            $table->timestamp('check_in')->nullable(); 
+            $table->timestamp('check_out')->nullable(); 
             $table->string('status'); 
             $table->string('guest_name'); 
             $table->string('guest_email'); 
             $table->string('guest_phone'); 
-            $table->timestamp('from_date'); 
-            $table->timestamp('to_date'); 
+            $table->timestamp('from_date')->nullable(); 
+            $table->timestamp('to_date')->nullable(); 
             $table->unique(['room_id','check_in','check_out',], 'bookings_room_id_check_in_check_out_key');
             $table->timestamps();
         });

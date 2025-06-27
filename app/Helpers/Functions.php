@@ -100,10 +100,10 @@ function efmt($v): string
  * @param mixed $v A date string or Carbon-compatible value.
  * @return string
  */
-function dfmt($v)
+function dfmt($v, $default = '')
 {
     if ($v == null) {
-        return '';
+        return $default;
     }
 
     $date = Carbon::parse($v);
@@ -119,7 +119,7 @@ function dfmt($v)
 function tfmt($v)
 {
     if ($v == null) {
-        return '';
+        return 'N/A';
     }
 
     $date = Carbon::parse($v);
