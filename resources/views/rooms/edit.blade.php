@@ -98,6 +98,30 @@
                         @endforeach
                     </flux:select>
 
+                    <flux:input
+                        wire:model="floor"
+                        name="floor"
+                        id="floor"
+                        type="text"
+                        required
+                        :label="__('Floor')"
+                        :value="$room->floor"
+                        :error="$errors->has('floor')"
+                        :error-message="$errors->first('floor')"
+                    />
+
+                    <flux:input
+                        wire:model="number"
+                        name="number"
+                        id="number"
+                        type="text"
+                        required
+                        :label="__('Number')"
+                        :value="$room->number"
+                        :error="$errors->has('number')"
+                        :error-message="$errors->first('number')"
+                    />
+
             <!-- Submit and Cancel Buttons -->
             <div class="flex justify-between gap-4">
                 <button type="button" onclick="history.back()"

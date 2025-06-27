@@ -7,6 +7,7 @@ namespace App\Policies;
 use App\Models\User;
 use Illuminate\Auth\Access\HandlesAuthorization;
 use App\Enums\Permissions;use App\Models\RoomImage;
+
 class RoomImagePolicy
 {
     use HandlesAuthorization;

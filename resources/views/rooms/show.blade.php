@@ -87,6 +87,28 @@
                         </dd>
                     </div>
 
+                    <div class="pr-4 py-4 sm:grid sm:grid-cols-3 sm:gap-4">
+                        <dt class="text-sm font-medium text-gray-500 dark:text-gray-400">
+                            {{ __('Floor') }}
+                        </dt>
+                        <dd class="mt-1 text-sm text-gray-900 dark:text-gray-100 sm:col-span-2 sm:mt-0">
+
+                                {{ $room->floor }}
+
+                        </dd>
+                    </div>
+
+                    <div class="pr-4 py-4 sm:grid sm:grid-cols-3 sm:gap-4">
+                        <dt class="text-sm font-medium text-gray-500 dark:text-gray-400">
+                            {{ __('Number') }}
+                        </dt>
+                        <dd class="mt-1 text-sm text-gray-900 dark:text-gray-100 sm:col-span-2 sm:mt-0">
+
+                                {{ $room->number }}
+
+                        </dd>
+                    </div>
+
         </div>
     </div>
 </x-layouts.app>

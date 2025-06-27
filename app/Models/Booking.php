@@ -33,6 +33,8 @@ class Booking extends Model
         'guest_name',
         'guest_email',
         'guest_phone',
+        'from_date',
+        'to_date',
     ];
 
     protected $append = [

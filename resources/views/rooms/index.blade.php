@@ -45,6 +45,8 @@
                         <th>Beds</th>
                         <th>Description</th>
                         <th>Status</th>
+                        <th>Floor</th>
+                        <th>Number</th>
                         <th class="w-1">
                             <div class="text-center">Actions</div>
                         </th>
@@ -69,6 +71,12 @@
                             <td class="px-4 py-3 text-sm text-neutral-700 dark:text-gray-100">
                                 {{efmt($v->status)}}
                             </td>
+                            <td class="px-4 py-3 text-sm text-neutral-700 dark:text-gray-100">
+                                {{$v->floor}}
+                            </td>
+                            <td class="px-4 py-3 text-sm text-neutral-700 dark:text-gray-100">
+                                {{$v->number}}
+                            </td>
 
                         <td class="px-4 py-2">
                             <div class="flex gap-2">
@@ -85,9 +93,9 @@
                                 <!-- Edit -->
                                 <a
                                     href="{{route('rooms.edit', $v->id)}}"
-                                    class="p-2 rounded-lg bg-yellow-600 text-white shadow hover:bg-yellow-700 focus:outline-none focus:ring-2 focus:ring-yellow-500 focus:ring-offset-2 dark:bg-yellow-500 dark:hover:bg-yellow-600"
+                                    class="p-2 rounded-lg bg-yellow-500 text-white shadow hover:bg-yellow-600 focus:outline-none focus:ring-2 focus:ring-yellow-500 focus:ring-offset-2 dark:bg-yellow-500 dark:hover:bg-yellow-600"
                                     title="Edit"
-                                    aria-label="Edit Item"
+                                    aria-label="Edit Room"
                                 >
                                     <x-heroicon-o-pencil-square class="w-4 h-4" />
                                 </a>

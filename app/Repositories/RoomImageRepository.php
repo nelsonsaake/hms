@@ -76,7 +76,7 @@ class RoomImageRepository
             return null;
         }
 
-        return Storage::disk($this->disk)->putFile('uploads/room_images', $file);
+        return Storage::disk($this->disk)->putFile('uploads/room_images', $this->disk);
     }
 
     /**
@@ -107,7 +107,8 @@ class RoomImageRepository
      */
     public function update(RoomImage $roomImage, array $data)
     {
-        $data['path'] = $this->storeFile($data, 'path'); 
+
+        $data['path'] = $this->storeFile($data, 'path');
         if ($data['path']) {
             $this->deleteFile($roomImage->path); 
         }

@@ -30,11 +30,15 @@ class Room extends Model
         'beds',
         'description',
         'status',
+        'floor',
+        'number',
     ];
 
     protected $casts = [
         'price' => 'double',
         'beds' => 'integer',
+        'floor' => 'integer',
+        'number' => 'integer',
     ];
 
     protected $append = [

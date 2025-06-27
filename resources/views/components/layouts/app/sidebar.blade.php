@@ -24,7 +24,7 @@
                     </flux:navlist.group> 
                 @endhasrole
 
-                 <flux:navlist.group :heading="__('Self Service')" class="grid">
+                <flux:navlist.group :heading="__('Self Service')" class="grid">
                     <x-nav-items.reservations/>
                 </flux:navlist.group>
                 
@@ -35,7 +35,7 @@
                     Permissions::VIEW_ANY_ROOM_IMAGE,
                 ]) 
                     <flux:navlist.group :heading="__('Resources')" class="grid">
-                        <x-nav-items.platform/>
+                        <x-nav-items.resources/>
                     </flux:navlist.group>
                 @endcanany
 

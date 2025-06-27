@@ -65,6 +65,8 @@ class RoomRepository
      *    @type int $beds
      *    @type string $description
      *    @type string $status
+     *    @type int $floor
+     *    @type int $number
      * }
      * @return Room|\Illuminate\Database\Eloquent\Model
      */
@@ -84,6 +86,8 @@ class RoomRepository
      *    @type int $beds (optional)
      *    @type string $description (optional)
      *    @type string $status (optional)
+     *    @type int $floor (optional)
+     *    @type int $number (optional)
      * }
      * @return Room
      */

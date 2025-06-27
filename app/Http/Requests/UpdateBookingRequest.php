@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\Http\Request;
+namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
@@ -32,6 +32,8 @@ class UpdateBookingRequest extends FormRequest
             'guest_name' => "sometimes|string",
             'guest_email' => "sometimes|string",
             'guest_phone' => "sometimes|string",
+            'from_date' => "sometimes|date",
+            'to_date' => "sometimes|date",
         ];
     }
 }

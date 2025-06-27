@@ -5,8 +5,8 @@ declare(strict_types=1);
 namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
-use App\Http\Request\StoreBookingRequest;
-use App\Http\Request\UpdateBookingRequest; 
+use App\Http\Requests\StoreBookingRequest;
+use App\Http\Requests\UpdateBookingRequest;
 use App\Models\Booking;
 use App\Models\User;
 use App\Models\Room;
@@ -50,7 +50,7 @@ class ReservationController extends Controller
      * @return
      */
     public function create(Request $request)
-    {  
+    {
         try {
             $users = User::all();
             $rooms = Room::all();
@@ -73,7 +73,7 @@ class ReservationController extends Controller
      * @return
      */
     public function store(StoreBookingRequest $request)
-    { 
+    {
         try {
             $reservation = $this->bookingRepository->create($request->all());
             return redirect()

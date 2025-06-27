@@ -1,6 +1,6 @@
-<x-layouts.app :title="__('Update Booking')">
+<x-layouts.app :title="__('Update Reservation')">
     <h2 class="text-xl font-semibold leading-tight text-gray-800 dark:text-gray-200 py-4 uppercase border-b-2 border-b-gray-200 dark:border-b-neutral-700">
-        {{ __('Update Booking') }}
+        {{ __('Update Reservation') }}
     </h2>
 
     @if(session('success'))
@@ -22,7 +22,7 @@
             </x-button>
         </div>
 
-        <form wire:submit.prevent="save" action="{{ route('reservations.update', $booking) }}"   method="POST" class="space-y-6">
+        <form wire:submit.prevent="save" action="{{ route('reservations.update', $reservation) }}"   method="POST" class="space-y-6">
             @csrf
             @method('PUT')
 
@@ -37,7 +37,7 @@
                         @foreach ($users as $v)
                             <option 
                                 value="{{ $v->id }}"
-                                {{ $booking->user_id == $v->id ? "selected" : "" }}
+                                {{ $reservation->user_id == $v->id ? "selected" : "" }}
                             >
                                 {{ $v->name ?? idfmt($v->id) }}
                             </option>
@@ -55,7 +55,7 @@
                         @foreach ($rooms as $v)
                             <option 
                                 value="{{ $v->id }}"
-                                {{ $booking->room_id == $v->id ? "selected" : "" }}
+                                {{ $reservation->room_id == $v->id ? "selected" : "" }}
                             >
                                 {{ $v->name ?? idfmt($v->id) }}
                             </option>
@@ -69,7 +69,7 @@
                             type="date"
                             required
                             :label="__('Check In')"
-                            :value="hdfmt($booking->check_in)"
+                            :value="hdfmt($reservation->check_in)"
                             :error="$errors->has('check_in')"
                             :error-message="$errors->first('check_in')"
                         />
@@ -81,7 +81,7 @@
                             type="date"
                             required
                             :label="__('Check Out')"
-                            :value="hdfmt($booking->check_out)"
+                            :value="hdfmt($reservation->check_out)"
                             :error="$errors->has('check_out')"
                             :error-message="$errors->first('check_out')"
                         />
@@ -97,7 +97,7 @@
                         @foreach (BookingStatus::values() as $v)
                             <option 
                                 value="{{ $v }}"
-                                {{ $booking->status == $v ? 'selected' : '' }}
+                                {{ $reservation->status == $v ? 'selected' : '' }}
                             >
                                 {{ efmt($v)  }}
                             </option>
@@ -111,7 +111,7 @@
                         type="text"
                         required
                         :label="__('Guest Name')"
-                        :value="$booking->guest_name"
+                        :value="$reservation->guest_name"
                         :error="$errors->has('guest_name')"
                         :error-message="$errors->first('guest_name')"
                     />
@@ -123,7 +123,7 @@
                         type="text"
                         required
                         :label="__('Guest Email')"
-                        :value="$booking->guest_email"
+                        :value="$reservation->guest_email"
                         :error="$errors->has('guest_email')"
                         :error-message="$errors->first('guest_email')"
                     />
@@ -135,7 +135,7 @@
                         type="text"
                         required
                         :label="__('Guest Phone')"
-                        :value="$booking->guest_phone"
+                        :value="$reservation->guest_phone"
                         :error="$errors->has('guest_phone')"
                         :error-message="$errors->first('guest_phone')"
                     />

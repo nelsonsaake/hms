@@ -31,8 +31,8 @@
             <!-- Right Side: Add Button -->
             <a
                 href="{{route('bookings.create')}}"
-                type="button" 
-                class="inline-flex items-center rounded-[9px] bg-blue-600 px-4 py-2 text-sm font-semibold text-white shadow hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 dark:bg-blue-500 dark:hover:bg-blue-600">
+                type="button"
+                class="inline-flex items-center rounded-lg bg-blue-600 px-4 py-2 text-sm font-semibold text-white shadow hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 dark:bg-blue-500 dark:hover:bg-blue-600">
                 + Add
             </a>
         </div>
@@ -48,6 +48,8 @@
                         <th>Guest Name</th>
                         <th>Guest Email</th>
                         <th>Guest Phone</th>
+                        <th>From Date</th>
+                        <th>To Date</th>
                         <th class="w-1">
                             <div class="text-center">Actions</div>
                         </th>
@@ -91,6 +93,12 @@
                             <td class="px-4 py-3 text-sm text-neutral-700 dark:text-gray-100">
                                 {{$v->guest_phone}}
                             </td>
+                            <td class="px-4 py-3 text-sm text-neutral-700 dark:text-gray-100">
+                                {{tfmt($v->from_date)}}
+                            </td>
+                            <td class="px-4 py-3 text-sm text-neutral-700 dark:text-gray-100">
+                                {{tfmt($v->to_date)}}
+                            </td>
 
                         <td class="px-4 py-2">
                             <div class="flex gap-2">
@@ -107,9 +115,9 @@
                                 <!-- Edit -->
                                 <a
                                     href="{{route('bookings.edit', $v->id)}}"
-                                    class="p-2 rounded-lg bg-yellow-600 text-white shadow hover:bg-yellow-700 focus:outline-none focus:ring-2 focus:ring-yellow-500 focus:ring-offset-2 dark:bg-yellow-500 dark:hover:bg-yellow-600"
+                                    class="p-2 rounded-lg bg-yellow-500 text-white shadow hover:bg-yellow-600 focus:outline-none focus:ring-2 focus:ring-yellow-500 focus:ring-offset-2 dark:bg-yellow-500 dark:hover:bg-yellow-600"
                                     title="Edit"
-                                    aria-label="Edit Item"
+                                    aria-label="Edit Booking"
                                 >
                                     <x-heroicon-o-pencil-square class="w-4 h-4" />
                                 </a>

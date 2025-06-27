@@ -29,6 +29,8 @@ class BookingFactory extends Factory
             'guest_name' => fake()->name(),
             'guest_email' => fake()->unique()->safeEmail(),
             'guest_phone' => fake()->phoneNumber(),
+            'from_date' => fake()->date('Y-m-d'),
+            'to_date' => fake()->date('Y-m-d'),
         ];
     }
 }

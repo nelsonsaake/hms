@@ -61,6 +61,8 @@ class BookingRepository
      *    @type string $guest_name
      *    @type string $guest_email
      *    @type string $guest_phone
+     *    @type DateTime $from_date
+     *    @type DateTime $to_date
      * }
      * @return Booking|\Illuminate\Database\Eloquent\Model
      */
@@ -83,6 +85,8 @@ class BookingRepository
      *    @type string $guest_name (optional)
      *    @type string $guest_email (optional)
      *    @type string $guest_phone (optional)
+     *    @type DateTime $from_date (optional)
+     *    @type DateTime $to_date (optional)
      * }
      * @return Booking
      */

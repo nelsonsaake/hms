@@ -73,9 +73,9 @@
                                 <!-- Edit -->
                                 <a
                                     href="{{route('users.edit', $v->id)}}"
-                                    class="p-2 rounded-lg bg-yellow-600 text-white shadow hover:bg-yellow-700 focus:outline-none focus:ring-2 focus:ring-yellow-500 focus:ring-offset-2 dark:bg-yellow-500 dark:hover:bg-yellow-600"
+                                    class="p-2 rounded-lg bg-yellow-500 text-white shadow hover:bg-yellow-600 focus:outline-none focus:ring-2 focus:ring-yellow-500 focus:ring-offset-2 dark:bg-yellow-500 dark:hover:bg-yellow-600"
                                     title="Edit"
-                                    aria-label="Edit Item"
+                                    aria-label="Edit User"
                                 >
                                     <x-heroicon-o-pencil-square class="w-4 h-4" />
                                 </a>

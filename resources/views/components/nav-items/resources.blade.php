@@ -2,7 +2,7 @@
     <flux:navlist.item icon="" 
         :href="route('rooms.index')" 
         :current="request()->routeIs('rooms.index')" 
-        :class="request()->routeIs('rooms.index') ? '' : '*:text-zinc-200 *:hover:text-zinc-400 *:font-light'" 
+        :class="request()->routeIs('rooms.index') ? '' : '*:text-zinc-200 *:hover:text-zinc-400'" 
         wire:navigate
     >
         {{ __('Rooms') }}

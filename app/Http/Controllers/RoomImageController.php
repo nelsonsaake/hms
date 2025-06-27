@@ -5,8 +5,8 @@ declare(strict_types=1);
 namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller; 
-use App\Http\Request\StoreRoomImageRequest;
-use App\Http\Request\UpdateRoomImageRequest;
+use App\Http\Requests\StoreRoomImageRequest;
+use App\Http\Requests\UpdateRoomImageRequest;
 use App\Http\Resources\RoomImageResource;
 use App\Models\RoomImage;
 use App\Models\Room;

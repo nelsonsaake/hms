@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace App\Http\Request;
+namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class UpdateRoomImageRequest extends FormRequest
+class UpdateUserRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -21,11 +21,12 @@ class UpdateRoomImageRequest extends FormRequest
      */
     public function rules(): array
     {
+        $userEmail = $this->route('user')->Email;
         
  
         return [
-            'path' => "sometimes|file",
-            'room_id' => "sometimes|string|exists:rooms,id",
+            'name' => "sometimes|string",
+            'email' => "sometimes|string|unique:users,email,$userEmail",
         ];
     }
 }

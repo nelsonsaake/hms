@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace App\Http\Request;
+namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class UpdateRoomRequest extends FormRequest
+class UpdateRoomImageRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -24,11 +24,8 @@ class UpdateRoomRequest extends FormRequest
         
  
         return [
-            'type' => "sometimes|string",
-            'price' => "sometimes|numeric",
-            'beds' => "sometimes|integer",
-            'description' => "sometimes|string",
-            'status' => "sometimes|string",
+            'path' => "sometimes|file",
+            'room_id' => "sometimes|string|exists:rooms,id",
         ];
     }
 }

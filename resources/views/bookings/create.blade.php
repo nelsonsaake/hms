@@ -127,6 +127,30 @@
                         :error-message="$errors->first('guest_phone')"
                     />
 
+                        <flux:input
+                            :label="__('From Date')"
+                            wire:model="from_date"
+                            id="from_date"
+                            name="from_date"
+                            type="date"
+                            required
+                            value="{{ old('from_date', hdfmt(now())) }}"
+                            :error="$errors->has('from_date')"
+                            :error-message="$errors->first('from_date')"
+                        />
+
+                        <flux:input
+                            :label="__('To Date')"
+                            wire:model="to_date"
+                            id="to_date"
+                            name="to_date"
+                            type="date"
+                            required
+                            value="{{ old('to_date', hdfmt(now())) }}"
+                            :error="$errors->has('to_date')"
+                            :error-message="$errors->first('to_date')"
+                        />
+
             <!-- Submit and Cancel Buttons -->
             <div class="flex justify-between gap-4">
                 <button type="button" onclick="history.back()"

@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace App\Http\Request;
+namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class UpdateUserRequest extends FormRequest
+class StoreUserRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -21,12 +21,9 @@ class UpdateUserRequest extends FormRequest
      */
     public function rules(): array
     {
-        $userEmail = $this->route('user')->Email;
-        
- 
         return [
-            'name' => "sometimes|string",
-            'email' => "sometimes|string|unique:users,email,$userEmail",
+            'name' => 'required|string',
+            'email' => 'required|string|unique:users,email',
         ];
     }
 }

@@ -24,6 +24,8 @@ class RoomFactory extends Factory
             'beds' => fake()->numberBetween(1, 1000),
             'description' => fake()->sentence(),
             'status' => fake()->randomElement(RoomStatus::values()),
+            'floor' => fake()->numberBetween(1, 1000),
+            'number' => fake()->numberBetween(1, 1000),
         ];
     }
 }

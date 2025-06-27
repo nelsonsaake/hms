@@ -5,8 +5,8 @@ declare(strict_types=1);
 namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller; 
-use App\Http\Request\StoreRoomRequest;
-use App\Http\Request\UpdateRoomRequest;
+use App\Http\Requests\StoreRoomRequest;
+use App\Http\Requests\UpdateRoomRequest;
 use App\Http\Resources\RoomResource;
 use App\Models\Room;
 use App\Repositories\RoomRepository; 
