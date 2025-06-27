@@ -28,6 +28,11 @@ class ReservationController extends Controller
      */
     public function index(Request $request)
     {
+        // restrict to current user
+        $request->merge([
+            'user_id' => authUser()->id,
+        ]);
+
         try {
             $reservations = $this->bookingRepository->paginate($request->all());
             return view('reservations.index', compact('reservations'));
