@@ -13,8 +13,7 @@ class DashboardController extends Controller
 {
     public function __construct(
         protected ReservationRepository $reservationRepository,
-        protected RoomRepository $roomRepository,
-        protected ReservationService $reservationService
+        protected RoomRepository $roomRepository
     ) {}
 
     public function index()
@@ -23,30 +22,6 @@ class DashboardController extends Controller
             return redirect()->route('bookings.index');
         }
 
-        return redirect()->route('reservations.index');
-    }
-
-    public function reservations(Request $request)
-    {
-        $reservations =  $this->reservationRepository->paginate($request->all());
-        return view('reservations', compact('reservations'));
-    }
-
-    public function rooms(Request $request)
-    {
-        $rooms = $this->roomRepository->paginate($request->all());
-        return view('rooms', compact('rooms'));
-    }
-
-    public function checkIn(Request $request, Booking $reservation)
-    {
-        $this->reservationService->checkIn($reservation);
-        return redirect()->route('reservations');
-    }
-
-    public function checkOut(Request $request, Booking $reservation)
-    {
-        $this->reservationService->checkOut($reservation);
-        return redirect()->route('reservations');
+        return redirect()->route('reservations.my');
     }
 }

@@ -3,6 +3,7 @@
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\ReservationController;
 use App\Http\Controllers\RoomController;
+use App\Http\Controllers\RoomController2;
 use App\Http\Controllers\TestingController;
 use App\Http\Controllers\WelcomeController;
 use Illuminate\Support\Facades\Route;
@@ -20,8 +21,6 @@ Route::middleware(['auth', 'verified'])
     ->controller(DashboardController::class)
     ->group(function () {
         Route::get('/dashboard', 'dashboard')->name('dashboard');
-        Route::get('/dashboard/reservations', 'reservations')->name('dashboard.reservations');
-        Route::get('/dashboard/rooms', 'rooms')->name('dashboard.rooms');
     });
 
 /**
@@ -31,6 +30,7 @@ Route::middleware(['auth'])->group(function () {
     Route::resource('reservations', controller: ReservationController::class)->names('reservations');
     Route::controller(ReservationController::class)->prefix('reservations')->name('reservations.')
         ->group(function () {
+            Route::get('/', 'my')->name('my');
             Route::post('/{reservation}/status', 'updateStatus')->name('updateStatus');
             Route::post('/{reservation}/check-in', 'checkIn')->name('checkin');
             Route::post('/{reservation}/check-out', 'checkOut')->name('checkout');
@@ -40,11 +40,12 @@ Route::middleware(['auth'])->group(function () {
 /**
  * Room
  */
-Route::middleware(['auth'])->group(function () { 
-    Route::controller(RoomController::class)->prefix('rooms')->name('rooms.')
-        ->group(function () {
+Route::middleware(['auth'])->group(function () {
+    Route::controller(RoomController2::class)->prefix('rooms')->name('rooms.')
+        ->group(function () { 
+            Route::get('/available', 'rooms')->name('rooms.available');
             Route::post('/{reservation}/make-available', 'makeAvailable')->name('makeAvailable');
-            Route::post('/{reservation}/make-out-of-service', 'makeOOS')->name('makeOOS'); 
+            Route::post('/{reservation}/make-out-of-service', 'makeOOS')->name('makeOOS');
         });
 });
 

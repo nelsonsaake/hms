@@ -2,16 +2,12 @@
     <h2
         class="text-xl font-semibold leading-tight text-gray-800 dark:text-gray-200 py-4 uppercase border-b-2 border-b-gray-200 dark:border-b-neutral-700">
         <div class="flex justify-between">
-
-            <div>
-                {{ __('Reservations') }}
+            <div class="flex justify-between">
+                <div>
+                    <span onclick="history.back()" class="pr-8 cursor-pointer inline-block">←</span>
+                    {{ __('Reservations') }}
+                </div>
             </div>
-
-            <!-- Right Side: Add Button -->
-            <a href="{{ route('reservations.create') }}"
-                class="inline-flex items-center rounded-[9px] bg-neutral-600 px-4 py-2 text-sm font-semibold text-white shadow hover:bg-neutral-700 focus:outline-none focus:ring-2 focus:ring-neutral-500 focus:ring-offset-2 dark:bg-neutral-500 dark:hover:bg-neutral-600 capitalize">
-                Make Reservation
-            </a>
         </div>
     </h2>
 
@@ -27,38 +23,54 @@
         </div>
     @endif
 
+    <div class="mt-8">
+        <x-booking-status-filter />
+    </div>
+
     <div class="flex w-full flex-1 flex-col gap-4 rounded-xl mt-8">
         <div class="flex items-center justify-between px-2 py-4 gap-4 flex-wrap">
-            <!-- Left Side: Back Button -->
-            <x-button onclick="history.back()">
-                ← {{ __('Back') }}
-            </x-button>
 
-            <!-- Middle: Search Input -->
-            <form method="GET" action="{{ route('reservations.index') }}" class="flex flex-1 gap-2">
+            <!-- Search and Date Filter -->
+            <form method="GET" action="{{ route('reservations.index') }}" class="flex flex-wrap gap-2 w-full">
                 <input type="text" name="search" value="{{ request('search') }}" placeholder="Search..."
                     class="flex-1 min-w-[200px] rounded-lg border border-neutral-300 bg-white px-4 py-2 text-sm text-neutral-700 shadow-sm focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500 dark:border-neutral-600 dark:bg-neutral-800 dark:text-white" />
+                
+                @if (request('status'))
+                    <input type="hidden" name="status" value="{{ request('status') }}">
+                @endif
+
+                <input type="date" name="start_date" value="{{ request('start_date') }}"
+                    class="rounded-lg border border-neutral-300 bg-white px-4 py-2 text-sm text-neutral-700 shadow-sm focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500 dark:border-neutral-600 dark:bg-neutral-800 dark:text-white" />
+
+                <input type="date" name="end_date" value="{{ request('end_date') }}"
+                    class="rounded-lg border border-neutral-300 bg-white px-4 py-2 text-sm text-neutral-700 shadow-sm focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500 dark:border-neutral-600 dark:bg-neutral-800 dark:text-white" />
+
                 <button type="submit"
                     class="rounded-lg px-4 py-2 bg-blue-600 text-white hover:bg-blue-700 text-sm font-medium dark:bg-blue-500 dark:hover:bg-blue-600">
-                    Search
+                    Filter
                 </button>
+                <a type="reset" href="{{ route('reservations.index', ['status' => BookingStatus::CONFIRMED]) }}"
+                    class="rounded-lg px-4 py-2 bg-red-600 text-white hover:bg-red-700 text-sm font-medium dark:bg-red-500 dark:hover:bg-red-600">
+                    Reset
+                </a>
             </form>
         </div>
+
         <div class="overflow-x-auto rounded-xl border border-neutral-200 dark:border-neutral-700">
             <table class="min-w-full divide-y divide-neutral-200 dark:divide-neutral-700 w-full table-auto">
                 <thead class="dark:bg-neutral-100 bg-gray-50">
                     <tr class="*:px-4 *:py-3 *:text-left *:text-sm *:font-semibold dark:text-gray-700 text-gray-800">
                         <th>Room</th>
                         <th>Guest</th>
-                        <th>Reserved</th>
+                        <th class="w-32">Reserved</th>
                         <th>Stay</th>
+                        <th>Status</th>
                         <th class="w-1">
                             <div class="text-center">Actions</div>
                         </th>
                     </tr>
                 </thead>
                 <tbody class="divide-y divide-neutral-200 dark:divide-neutral-700">
-
                     @forelse ($reservations as $v)
                         <tr class="hover:bg-neutral-50 dark:hover:bg-neutral-800/50">
                             <td class="px-4 py-3 text-sm text-neutral-700 dark:text-gray-100">
@@ -68,15 +80,25 @@
                                     </dd>
                                     <dt>Number</dt>
                                     <dd>
-                                        <a href="{{ route('rooms.show', $v?->room_id) }}"
+                                        <a href="{{ route('rooms.show', $v->room_id) }}"
                                             class="underline text-blue-900 dark:text-blue-500">
                                             {{ $v->room->number }}
                                         </a>
                                     </dd>
                                     <dt>Status</dt>
-                                    <dd>{{ efmt($v->status) }}</dd>
+                                    <dd class="flex items-center gap-2">
+                                        @if ($v->room->status === \App\Enums\RoomStatus::AVAILABLE)
+                                            <span
+                                                class="inline-flex items-center font-medium text-green-800 dark:bg-green-800 dark:text-green-100">
+                                                Available
+                                            </span>
+                                        @else
+                                            {{ efmt($v->room->status) }}
+                                        @endif
+                                    </dd>
                                 </dl>
                             </td>
+
                             <td class="px-4 py-3 text-sm text-neutral-700 dark:text-gray-100">
                                 <dl>
                                     <dt>Name</dt>
@@ -87,14 +109,16 @@
                                     <dd>{{ $v->guest_phone }}</dd>
                                 </dl>
                             </td>
+
                             <td class="px-4 py-3 text-sm text-neutral-700 dark:text-gray-100">
                                 <dl>
                                     <dt>From</dt>
                                     <dd>{{ dfmt($v->from_date, 'N/A') }}</dd>
-                                    <dt>to</dt>
+                                    <dt>To</dt>
                                     <dd>{{ dfmt($v->to_date, 'N/A') }}</dd>
                                 </dl>
                             </td>
+
                             <td class="px-4 py-3 text-sm text-neutral-700 dark:text-gray-100">
                                 <dl>
                                     <dt>Check In</dt>
@@ -104,9 +128,20 @@
                                 </dl>
                             </td>
 
+                            <td class="px-4 py-3 text-sm text-neutral-700 dark:text-gray-100">
+
+                                <dl>
+                                    <dt>{{ efmt($v->status) }}</dt>
+                                </dl>
+
+                                <!-- Status-Based Actions -->
+                                <x-booking-status-control :reservation="$v" />
+
+                            </td>
+
                             <td class="px-4 py-2">
                                 <div class="flex gap-2">
-                                    <!-- View (always allowed) -->
+                                    <!-- View -->
                                     <a href="{{ route('reservations.show', $v->id) }}"
                                         class="p-2 rounded-lg bg-blue-600 text-white shadow hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 dark:bg-blue-500 dark:hover:bg-blue-600"
                                         title="View Details" aria-label="View">
@@ -147,9 +182,9 @@
                                             <x-heroicon-o-trash class="w-4 h-4" />
                                         </button>
                                     @endcan
+
                                 </div>
                             </td>
-
                         </tr>
                     @empty
                         <tr>
@@ -161,9 +196,9 @@
                 </tbody>
             </table>
         </div>
-        <!-- Pagination Links -->
+
         <div class="px-4 py-3 sm:px-6">
-            {{ $reservations->links() }}
+            {{ $reservations->appends(request()->all())->links() }}
         </div>
     </div>
 </x-layouts.app>

@@ -42,7 +42,7 @@
         class="flex gap-1.5 overflow-x-auto scrollbar-hide whitespace-nowrap px-8">
         <div class="flex gap-1.5 ml-[14px]">
             @foreach ($statuses as $status)
-                <a href="{{ route('dashboard.reservations', array_merge(request()->except('page'), ['status' => $status])) }}"
+                <a href="{{ route('reservations.index', array_merge(request()->except('page'), ['status' => $status])) }}"
                     class="px-3 py-1.5 rounded-full text-xs font-medium border transition
                         {{ $currentStatus === $status
                             ? 'bg-blue-600 text-white border-blue-600'
@@ -52,7 +52,7 @@
             @endforeach
 
             @if ($currentStatus)
-                <a href="{{ route('dashboard.reservations', request()->except('status', 'page')) }}"
+                <a href="{{ route('reservations.index', request()->except('status', 'page')) }}"
                     class="px-3 py-1.5 rounded-full text-xs font-medium bg-gray-100 text-gray-700 border border-gray-300 dark:bg-neutral-700 dark:text-white dark:border-neutral-600">
                     Clear
                 </a>

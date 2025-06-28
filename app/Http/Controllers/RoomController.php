@@ -7,7 +7,6 @@ namespace App\Http\Controllers;
 use App\Http\Controllers\Controller; 
 use App\Http\Requests\StoreRoomRequest;
 use App\Http\Requests\UpdateRoomRequest;
-use App\Http\Resources\RoomResource;
 use App\Models\Room;
 use App\Repositories\RoomRepository; 
 use Illuminate\Http\Request;
@@ -131,54 +130,6 @@ class RoomController extends Controller
      * @return
      */
     public function update(UpdateRoomRequest $request, Room $room)
-    {
-        Gate::authorize('update', $room);
-
-        try {
-            $room = $this->roomRepository->update($room, $request->all());
-            return redirect()
-                ->route('rooms.index')
-                ->with('success', 'Update room successful');
-        } catch (\Exception $e) {
-            Log::debug ("Error updating room: " . $e->getMessage());
-             return redirect()->back()->withErrors(
-                'Something went wrong updating the room, please try again later.'
-            );
-        } 
-    }
-
-    /**
-     * Update the specified room in storage.
-     *
-     * @param  UpdateRoomRequest  $request
-     * @param  \App\Models\Room  $room
-     * @return
-     */
-    public function makeAvailable(UpdateRoomRequest $request, Room $room)
-    {
-        Gate::authorize('update', $room);
-
-        try {
-            $room = $this->roomRepository->update($room, $request->all());
-            return redirect()
-                ->route('rooms.index')
-                ->with('success', 'Update room successful');
-        } catch (\Exception $e) {
-            Log::debug ("Error updating room: " . $e->getMessage());
-             return redirect()->back()->withErrors(
-                'Something went wrong updating the room, please try again later.'
-            );
-        } 
-    }
-
-    /**
-     * Update the specified room in storage.
-     *
-     * @param  UpdateRoomRequest  $request
-     * @param  \App\Models\Room  $room
-     * @return
-     */
-    public function makeOOS(UpdateRoomRequest $request, Room $room)
     {
         Gate::authorize('update', $room);
 

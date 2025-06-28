@@ -1,9 +1,5 @@
 # Tools
 
-- on reservations page
-  + when you filter it should not clear the status
-  + but when you change status it should clear filter
-- add a book button to the rooms table
 - add a report page with an export button
 - on check in, let room status be checked in
 - on check out, let the room status be available

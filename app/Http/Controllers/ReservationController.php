@@ -13,6 +13,7 @@ use App\Models\Booking;
 use App\Models\User;
 use App\Models\Room;
 use App\Repositories\ReservationRepository;
+use App\Services\ReservationService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Log;
@@ -21,6 +22,7 @@ class ReservationController extends Controller
 {
     public function __construct(
         protected ReservationRepository $reservationRepository,
+        protected ReservationService $reservationService,
     ) {}
 
     /**
@@ -28,7 +30,18 @@ class ReservationController extends Controller
      *
      * @return
      */
-    public function index(Request $request)
+    public function reservations(Request $request)
+    {
+        $reservations =  $this->reservationRepository->paginate($request->all());
+        return view('reservations.index', compact('reservations'));
+    }
+
+    /**
+     * Display a listing of the booking for the current user only
+     *
+     * @return
+     */
+    public function my(Request $request)
     {
         // restrict to current user
         $request->merge([
@@ -37,7 +50,7 @@ class ReservationController extends Controller
 
         try {
             $reservations = $this->reservationRepository->paginate($request->all());
-            return view('reservations.index', compact('reservations'));
+            return view('reservations.my', compact('reservations'));
         } catch (\Exception $e) {
             Log::debug("Error getting reservations: " . $e->getMessage());
             $msg = 'Something went wrong getting reservations, please try again later.';
@@ -79,7 +92,7 @@ class ReservationController extends Controller
         try {
             $reservation = $this->reservationRepository->create($request->all());
             return redirect()
-                ->route('reservations.index')
+                ->route('reservations.my')
                 ->with('success', 'Create reservation successful');
         } catch (\Exception $e) {
             Log::debug("Error creating reservation: " . $e->getMessage());
@@ -147,7 +160,7 @@ class ReservationController extends Controller
         try {
             $this->reservationRepository->update($reservation, $request->all());
             return redirect()
-                ->route('reservations.index')
+                ->route('reservations.my')
                 ->with('success', 'Update reservation successful');
         } catch (\Exception $e) {
             Log::debug("Error updating reservation: " . $e->getMessage());
@@ -170,6 +183,18 @@ class ReservationController extends Controller
         return redirect()->back()->with('success', 'Reservations ' . efmt($new) . ' successfully.');
     }
 
+    public function checkIn(Request $request, Booking $reservation)
+    {
+        $this->reservationService->checkIn($reservation);
+        return redirect()->route('reservations');
+    }
+
+    public function checkOut(Request $request, Booking $reservation)
+    {
+        $this->reservationService->checkOut($reservation);
+        return redirect()->route('reservations');
+    }
+
     /**
      * Remove the specified booking from storage.
      *
@@ -183,7 +208,7 @@ class ReservationController extends Controller
         try {
             $this->reservationRepository->destroy($reservation);
             return redirect()
-                ->route('reservations.index')
+                ->route('reservations.my')
                 ->with('success', 'Reservation deleted successfully.');
         } catch (\Exception $e) {
             Log::debug("Error deleting reservation: " .  $e->getMessage());

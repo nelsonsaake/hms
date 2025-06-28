@@ -21,7 +21,7 @@
 
     {{-- Filters --}}
     <div class="mt-4">
-        <form method="GET" action="{{ route('dashboard.rooms', ['status' => RoomStatus::AVAILABLE]) }}" class="flex flex-wrap gap-2">
+        <form method="GET" action="{{ route('rooms.available', ['status' => RoomStatus::AVAILABLE]) }}" class="flex flex-wrap gap-2">
             <input type="text" name="search" value="{{ request('search') }}" placeholder="{{ __('Search rooms...') }}"
                 class="flex-1 min-w-[200px] rounded-lg border border-neutral-300 bg-white px-4 py-2 text-sm text-neutral-700 shadow-sm focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500 dark:border-neutral-600 dark:bg-neutral-800 dark:text-white" />
 
@@ -43,6 +43,7 @@
                     <th>{{ __('Beds') }}</th>
                     <th>{{ __('Price') }}</th>
                     <th>{{ __('Status') }}</th>
+                    <th></th>
                 </tr>
             </thead>
             <tbody class="divide-y divide-neutral-200 dark:divide-neutral-700">
@@ -52,7 +53,7 @@
                             <x-image-display :src="$room->roomImages()->first()?->url" size="xs" label="" />
                         </td>
                         <td class="px-4 py-3 text-sm text-neutral-700 dark:text-gray-100">{{ $room->number }}</td>
-                        <td class="px-4 py-3 text-sm text-neutral-700 dark:text-gray-100">{{ ucwords(str_replace('_',' ',$room->type)) }}</td>
+                        <td class="px-4 py-3 text-sm text-neutral-700 dark:text-gray-100">{{ efmt($room->type) }}</td>
                         <td class="px-4 py-3 text-sm text-neutral-700 dark:text-gray-100">{{ $room->beds }}</td>
                         <td class="px-4 py-3 text-sm text-neutral-700 dark:text-gray-100">{{ mfmt($room->price) }}</td>
                         <td class="px-4 py-3 text-sm">
@@ -62,6 +63,12 @@
                                    'text-red-800 bg-red-100 dark:text-red-100 dark:bg-red-700') }}">
                                 {{ efmt($room->status) }}
                             </span>
+                        </td>
+                        <td>
+                            <a href="{{ route('reservations.create', $room->id) }}"
+                                    class="bg-blue-900 hover:bg-blue-950 text-white text-sm px-4 py-2 rounded-full font-medium transition">
+                                    Book Now
+                                </a>
                         </td>
                     </tr>
                 @empty
