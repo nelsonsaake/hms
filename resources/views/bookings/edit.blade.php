@@ -1,6 +1,15 @@
 <x-layouts.app :title="__('Update Booking')">
     <h2 class="text-xl font-semibold leading-tight text-gray-800 dark:text-gray-200 py-4 uppercase border-b-2 border-b-gray-200 dark:border-b-neutral-700">
-        {{ __('Update Booking') }}
+        <div x-data="{ canGoBack: false }" x-init="canGoBack = history.length > 1">
+            <span
+                x-show="canGoBack"
+                onclick="history.back()"
+                class="pr-8 cursor-pointer mr-8 inline-block"
+            >
+                ←
+            </span>
+            {{ __('Update Booking') }}
+        </div>
     </h2>
 
     @if(session('success'))
@@ -16,11 +25,6 @@
     @endif
 
     <div class="flex w-full flex-1 flex-col gap-4 rounded-xl mt-8">
-        <div class="flex items-center justify-between py-4 gap-4 flex-wrap">
-            <x-button color="blue" onclick="history.back()">
-                ← {{ __('Back')}}
-            </x-button>
-        </div>
 
         <form wire:submit.prevent="save" action="{{ route('bookings.update', $booking) }}"   method="POST" class="space-y-6">
             @csrf
@@ -67,7 +71,7 @@
                             name="check_in"
                             id="check_in"
                             type="date"
-                            required
+
                             :label="__('Check In')"
                             :value="hdfmt($booking->check_in)"
                             :error="$errors->has('check_in')"
@@ -79,7 +83,7 @@
                             name="check_out"
                             id="check_out"
                             type="date"
-                            required
+
                             :label="__('Check Out')"
                             :value="hdfmt($booking->check_out)"
                             :error="$errors->has('check_out')"
@@ -109,7 +113,7 @@
                         name="guest_name"
                         id="guest_name"
                         type="text"
-                        required
+
                         :label="__('Guest Name')"
                         :value="$booking->guest_name"
                         :error="$errors->has('guest_name')"
@@ -121,7 +125,7 @@
                         name="guest_email"
                         id="guest_email"
                         type="text"
-                        required
+
                         :label="__('Guest Email')"
                         :value="$booking->guest_email"
                         :error="$errors->has('guest_email')"
@@ -133,7 +137,7 @@
                         name="guest_phone"
                         id="guest_phone"
                         type="text"
-                        required
+
                         :label="__('Guest Phone')"
                         :value="$booking->guest_phone"
                         :error="$errors->has('guest_phone')"
@@ -145,7 +149,7 @@
                             name="from_date"
                             id="from_date"
                             type="date"
-                            required
+
                             :label="__('From Date')"
                             :value="hdfmt($booking->from_date)"
                             :error="$errors->has('from_date')"
@@ -157,7 +161,7 @@
                             name="to_date"
                             id="to_date"
                             type="date"
-                            required
+
                             :label="__('To Date')"
                             :value="hdfmt($booking->to_date)"
                             :error="$errors->has('to_date')"

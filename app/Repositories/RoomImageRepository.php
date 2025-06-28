@@ -27,7 +27,14 @@ class RoomImageRepository
      */
     public function paginate(array $data)
     { 
-        return RoomImage::query() 
+        $search = get($data, 'search');
+
+        return RoomImage::query()
+            ->when($search, function ($query) use ($search) {
+                return $query
+                    ->where('path', 'like', "%$search%")
+                    ->orWhere('room_id', 'like', "%$search%");
+            }) 
             ->when(get($data, 'start_date'), function ($query) use ($data) {
                 $query->whereDate('created_at', '>=', Carbon::parse(get($data, 'start_date')));
             })

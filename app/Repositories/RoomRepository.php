@@ -30,7 +30,13 @@ class RoomRepository
         return Room::query()
             ->when($search, function ($query) use ($search) {
                 return $query
-                    ->where('description', 'like', "%$search%");
+                    ->where('type', 'like', "%$search%")
+                    ->orWhere('price', 'like', "%$search%")
+                    ->orWhere('beds', 'like', "%$search%")
+                    ->orWhere('description', 'like', "%$search%")
+                    ->orWhere('status', 'like', "%$search%")
+                    ->orWhere('floor', 'like', "%$search%")
+                    ->orWhere('number', 'like', "%$search%");
             })
             ->when(get($data, 'status'), function ($query) use ($data) {
                 $query->where('status', get($data, 'status'));

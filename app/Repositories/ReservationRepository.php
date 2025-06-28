@@ -5,8 +5,12 @@ declare(strict_types=1);
 namespace App\Repositories;
 
 use App\Enums\BookingStatus;
+use App\Enums\RoomStatus;
 use Carbon\Carbon;
 use App\Models\Booking;
+use App\Models\Room;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Validation\ValidationException;
 
 class ReservationRepository
 {
@@ -42,9 +46,9 @@ class ReservationRepository
                 $search = get($data, 'search');
                 $query->where(function ($q) use ($search) {
                     $q->where('guest_name', 'like', "%{$search}%")
-                      ->orWhere('guest_email', 'like', "%{$search}%")
-                      ->orWhere('guest_phone', 'like', "%{$search}%")
-                      ->orWhere('status', 'like', "%{$search}%");
+                        ->orWhere('guest_email', 'like', "%{$search}%")
+                        ->orWhere('guest_phone', 'like', "%{$search}%")
+                        ->orWhere('status', 'like', "%{$search}%");
                 });
             })
             ->orderBy('created_at', 'desc')
@@ -78,14 +82,35 @@ class ReservationRepository
      *    @type DateTime $to_date
      * }
      * @return Booking
+     * @throws \Throwable
      */
     public function create(array $data): Booking
     {
-        return Booking::create([
-            ...$data,
-            'user_id' => authUser()->id,
-            'status' => BookingStatus::PENDING,
-        ]);
+        return DB::transaction(function () use ($data) {
+            
+            // Fetch and validate room
+            $room = Room::lockForUpdate()->findOrFail($data['room_id']);
+
+            if ($room->status !== RoomStatus::AVAILABLE) {
+                throw ValidationException::withMessages([
+                    'room_id' => ['Room is not available for booking.'],
+                ]);
+            }
+
+            // Create booking
+            $booking = Booking::create([
+                ...$data,
+                'user_id' => authUser()->id,
+                'status' => BookingStatus::PENDING,
+            ]);
+
+            // Update room status
+            $room->update([
+                'status' => RoomStatus::BOOKED,
+            ]);
+
+            return $booking;
+        });
     }
 
     /**

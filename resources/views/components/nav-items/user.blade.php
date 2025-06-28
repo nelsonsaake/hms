@@ -6,16 +6,16 @@
         :class="request()->routeIs('reservations.index') ? '' : '*:text-zinc-200 *:hover:text-zinc-400'" 
         wire:navigate
     >
-        {{ __('Reservation History') }}
+        {{ __('My Reservations') }}
     </flux:navlist.item> 
 
-    <flux:navlist.item icon="" 
+    {{-- <flux:navlist.item icon="" 
         :href="route('reservations.create')" 
         :current="request()->routeIs('reservations.create')" 
         :class="request()->routeIs('reservations.create') ? '' : '*:text-zinc-200 *:hover:text-zinc-400 *:font-light'" 
         wire:navigate
     >
         {{ __('Make Reservation') }}
-    </flux:navlist.item>
+    </flux:navlist.item> --}}
 
 </div>

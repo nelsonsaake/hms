@@ -1,6 +1,15 @@
 <x-layouts.app :title="__('Update Room')">
     <h2 class="text-xl font-semibold leading-tight text-gray-800 dark:text-gray-200 py-4 uppercase border-b-2 border-b-gray-200 dark:border-b-neutral-700">
-        {{ __('Update Room') }}
+        <div x-data="{ canGoBack: false }" x-init="canGoBack = history.length > 1">
+            <span
+                x-show="canGoBack"
+                onclick="history.back()"
+                class="pr-8 cursor-pointer mr-8 inline-block"
+            >
+                ←
+            </span>
+            {{ __('Update Room') }}
+        </div>
     </h2>
 
     @if(session('success'))
@@ -16,11 +25,6 @@
     @endif
 
     <div class="flex w-full flex-1 flex-col gap-4 rounded-xl mt-8">
-        <div class="flex items-center justify-between py-4 gap-4 flex-wrap">
-            <x-button color="blue" onclick="history.back()">
-                ← {{ __('Back')}}
-            </x-button>
-        </div>
 
         <form wire:submit.prevent="save" action="{{ route('rooms.update', $room) }}"   method="POST" class="space-y-6">
             @csrf
@@ -49,7 +53,7 @@
                         name="price"
                         id="price"
                         type="text"
-                        required
+
                         :label="__('Price')"
                         :value="$room->price"
                         :error="$errors->has('price')"
@@ -61,7 +65,7 @@
                         name="beds"
                         id="beds"
                         type="text"
-                        required
+
                         :label="__('Beds')"
                         :value="$room->beds"
                         :error="$errors->has('beds')"
@@ -73,7 +77,7 @@
                         name="description"
                         id="description"
                         type="text"
-                        required
+
                         :label="__('Description')"
                         :value="$room->description"
                         :error="$errors->has('description')"
@@ -103,7 +107,7 @@
                         name="floor"
                         id="floor"
                         type="text"
-                        required
+
                         :label="__('Floor')"
                         :value="$room->floor"
                         :error="$errors->has('floor')"
@@ -115,7 +119,7 @@
                         name="number"
                         id="number"
                         type="text"
-                        required
+
                         :label="__('Number')"
                         :value="$room->number"
                         :error="$errors->has('number')"

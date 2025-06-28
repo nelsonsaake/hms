@@ -15,29 +15,26 @@
                 
                 @hasrole(Roles::ADMINISTRATOR) 
                     <flux:navlist.group :heading="__('Dashboard')" class="grid">
-                        <!-- <flux:navlist.item icon="home" 
-                            :href="route('dashboard')" 
-                            :current="request()->routeIs('dashboard')" 
-                            wire:navigate>
-                            {{ __('Dashboard') }}
-                        </flux:navlist.item> -->
+                        <x-nav-items.admin/>
                     </flux:navlist.group> 
-                @endhasrole
-
-                <flux:navlist.group :heading="__('Self Service')" class="grid">
-                    <x-nav-items.reservations/>
-                </flux:navlist.group>
                 
-                @canany([
-                    Permissions::VIEW_ANY_BOOKING,
-                    Permissions::VIEW_ANY_ROOM,
-                    Permissions::VIEW_ANY_USER,
-                    Permissions::VIEW_ANY_ROOM_IMAGE,
-                ]) 
-                    <flux:navlist.group :heading="__('Resources')" class="grid">
-                        <x-nav-items.resources/>
-                    </flux:navlist.group>
-                @endcanany
+                    @canany([
+                        Permissions::VIEW_ANY_BOOKING,
+                        Permissions::VIEW_ANY_ROOM,
+                        Permissions::VIEW_ANY_USER,
+                        Permissions::VIEW_ANY_ROOM_IMAGE,
+                    ]) 
+                        <flux:navlist.group :heading="__('Resources')" class="grid">
+                            <x-nav-items.resources/>
+                        </flux:navlist.group>
+                    @endcanany
+                @endhasrole
+                
+                @hasrole(Roles::USER) 
+                    <flux:navlist.group :heading="__('Dashboard')" class="grid">
+                        <x-nav-items.user/>
+                    </flux:navlist.group> 
+                @endhasrole 
 
             </flux:navlist>
 

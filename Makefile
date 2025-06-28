@@ -8,6 +8,7 @@ migrate:
 	php artisan migrate
 
 setup:
+	composer require blade-ui-kit/blade-heroicons
 	composer require spatie/laravel-permission
 	php artisan vendor:publish --provider="Spatie\Permission\PermissionServiceProvider"
 	php artisan migrate

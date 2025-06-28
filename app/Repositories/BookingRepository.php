@@ -24,7 +24,22 @@ class BookingRepository
      */
     public function paginate(array $data)
     { 
+        $search = get($data, 'search');
+
         return Booking::query()
+            ->when($search, function ($query) use ($search) {
+                return $query
+                    ->where('user_id', 'like', "%$search%")
+                    ->orWhere('room_id', 'like', "%$search%")
+                    ->orWhere('check_in', 'like', "%$search%")
+                    ->orWhere('check_out', 'like', "%$search%")
+                    ->orWhere('status', 'like', "%$search%")
+                    ->orWhere('guest_name', 'like', "%$search%")
+                    ->orWhere('guest_email', 'like', "%$search%")
+                    ->orWhere('guest_phone', 'like', "%$search%")
+                    ->orWhere('from_date', 'like', "%$search%")
+                    ->orWhere('to_date', 'like', "%$search%");
+            })
             ->when(get($data, 'status'), function ($query) use ($data) {
                 $query->where('status', get($data, 'status'));
             }) 

@@ -29,7 +29,8 @@ class UserRepository
         return User::query()
             ->when($search, function ($query) use ($search) {
                 return $query
-                    ->where('name', 'like', "%$search%");
+                    ->where('name', 'like', "%$search%")
+                    ->orWhere('email', 'like', "%$search%");
             }) 
             ->when(get($data, 'start_date'), function ($query) use ($data) {
                 $query->whereDate('created_at', '>=', Carbon::parse(get($data, 'start_date')));

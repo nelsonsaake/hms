@@ -148,6 +148,54 @@ class RoomController extends Controller
     }
 
     /**
+     * Update the specified room in storage.
+     *
+     * @param  UpdateRoomRequest  $request
+     * @param  \App\Models\Room  $room
+     * @return
+     */
+    public function makeAvailable(UpdateRoomRequest $request, Room $room)
+    {
+        Gate::authorize('update', $room);
+
+        try {
+            $room = $this->roomRepository->update($room, $request->all());
+            return redirect()
+                ->route('rooms.index')
+                ->with('success', 'Update room successful');
+        } catch (\Exception $e) {
+            Log::debug ("Error updating room: " . $e->getMessage());
+             return redirect()->back()->withErrors(
+                'Something went wrong updating the room, please try again later.'
+            );
+        } 
+    }
+
+    /**
+     * Update the specified room in storage.
+     *
+     * @param  UpdateRoomRequest  $request
+     * @param  \App\Models\Room  $room
+     * @return
+     */
+    public function makeOOS(UpdateRoomRequest $request, Room $room)
+    {
+        Gate::authorize('update', $room);
+
+        try {
+            $room = $this->roomRepository->update($room, $request->all());
+            return redirect()
+                ->route('rooms.index')
+                ->with('success', 'Update room successful');
+        } catch (\Exception $e) {
+            Log::debug ("Error updating room: " . $e->getMessage());
+             return redirect()->back()->withErrors(
+                'Something went wrong updating the room, please try again later.'
+            );
+        } 
+    }
+
+    /**
      * Remove the specified room from storage.
      *
      * @param  \App\Models\Room  $room

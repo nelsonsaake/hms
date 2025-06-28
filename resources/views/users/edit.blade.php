@@ -1,6 +1,15 @@
 <x-layouts.app :title="__('Update User')">
     <h2 class="text-xl font-semibold leading-tight text-gray-800 dark:text-gray-200 py-4 uppercase border-b-2 border-b-gray-200 dark:border-b-neutral-700">
-        {{ __('Update User') }}
+        <div x-data="{ canGoBack: false }" x-init="canGoBack = history.length > 1">
+            <span
+                x-show="canGoBack"
+                onclick="history.back()"
+                class="pr-8 cursor-pointer mr-8 inline-block"
+            >
+                ←
+            </span>
+            {{ __('Update User') }}
+        </div>
     </h2>
 
     @if(session('success'))
@@ -16,11 +25,6 @@
     @endif
 
     <div class="flex w-full flex-1 flex-col gap-4 rounded-xl mt-8">
-        <div class="flex items-center justify-between py-4 gap-4 flex-wrap">
-            <x-button color="blue" onclick="history.back()">
-                ← {{ __('Back')}}
-            </x-button>
-        </div>
 
         <form wire:submit.prevent="save" action="{{ route('users.update', $user) }}"   method="POST" class="space-y-6">
             @csrf
@@ -31,7 +35,7 @@
                         name="name"
                         id="name"
                         type="text"
-                        required
+
                         :label="__('Name')"
                         :value="$user->name"
                         :error="$errors->has('name')"
@@ -43,7 +47,7 @@
                         name="email"
                         id="email"
                         type="text"
-                        required
+
                         :label="__('Email')"
                         :value="$user->email"
                         :error="$errors->has('email')"

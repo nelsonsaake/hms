@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Http\Controllers;
 
+use App\Enums\BookingStatusNextOptions;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreBookingRequest;
 use App\Http\Requests\StoreReservationRequest;
@@ -154,6 +155,19 @@ class ReservationController extends Controller
                 'Something went wrong updating the reservation, please try again later.'
             );
         }
+    }
+
+    public function updateStatus(Request $request, Booking $reservation)
+    {
+        // $this->authorize('modify', $reservation);
+
+        $new = $request->input('status');
+        if (!in_array($new, BookingStatusNextOptions::options($reservation->status), true)) {
+            return redirect()->back()->with('error', 'Invalid status transition.');
+        }
+
+        $reservation->update(['status' => $new]);
+        return redirect()->back()->with('success', 'Reservations ' . efmt($new) . ' successfully.');
     }
 
     /**
