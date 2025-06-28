@@ -10,7 +10,7 @@
 
 @foreach ($next as $toStatus)
     @php
-        $label = ucwords(str_replace('_', ' ', $toStatus));
+        $label = efmt($toStatus);
         $baseClasses = "px-3 py-1.5 text-xs font-medium rounded-full border transition";
 
         $styles = match ($toStatus) {

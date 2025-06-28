@@ -14,8 +14,13 @@
             <flux:navlist variant="outline">
                 
                 @hasrole(Roles::ADMINISTRATOR) 
+
                     <flux:navlist.group :heading="__('Dashboard')" class="grid">
                         <x-nav-items.admin/>
+                    </flux:navlist.group> 
+
+                    <flux:navlist.group :heading="__('Reports')" class="grid">
+                        <x-nav-items.reports/>
                     </flux:navlist.group> 
                 
                     @canany([
@@ -28,6 +33,7 @@
                             <x-nav-items.resources/>
                         </flux:navlist.group>
                     @endcanany
+
                 @endhasrole
                 
                 @hasrole(Roles::USER) 

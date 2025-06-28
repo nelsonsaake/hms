@@ -13,20 +13,19 @@ use Illuminate\Support\Facades\Log;
 class RoomController2 extends Controller
 {
     public function __construct(
-        protected RoomRepository $roomRepository, 
-    ) {
-    }
+        protected RoomRepository $roomRepository,
+    ) {}
 
-    public function availableRooms(Request $request)
+    public function available(Request $request)
     {
-        $rooms = $this->roomRepository->paginate($request->all(
-            [
-                'status' => RoomStatus::AVAILABLE
-            ]
-        ));
+        $request->merge([
+            'status' => RoomStatus::AVAILABLE
+        ]);
+
+        $rooms = $this->roomRepository->paginate($request->all());
         return view('rooms.available', compact('rooms'));
     }
-     
+
     /**
      * Update the specified room in storage.
      *
@@ -44,11 +43,11 @@ class RoomController2 extends Controller
                 ->route('rooms.index')
                 ->with('success', 'Update room successful');
         } catch (\Exception $e) {
-            Log::debug ("Error updating room: " . $e->getMessage());
-             return redirect()->back()->withErrors(
+            Log::debug("Error updating room: " . $e->getMessage());
+            return redirect()->back()->with('error', 
                 'Something went wrong updating the room, please try again later.'
             );
-        } 
+        }
     }
 
     /**
@@ -68,10 +67,10 @@ class RoomController2 extends Controller
                 ->route('rooms.index')
                 ->with('success', 'Update room successful');
         } catch (\Exception $e) {
-            Log::debug ("Error updating room: " . $e->getMessage());
-             return redirect()->back()->withErrors(
+            Log::debug("Error updating room: " . $e->getMessage());
+            return redirect()->back()->with('error', 
                 'Something went wrong updating the room, please try again later.'
             );
-        } 
+        }
     }
 }

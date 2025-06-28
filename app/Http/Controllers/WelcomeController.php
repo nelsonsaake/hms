@@ -10,7 +10,7 @@ class WelcomeController extends Controller
     public function __invoke()
     {
         $rooms = Room::with('roomImages')
-            ->where('status', 'available')
+            // ->where('status', 'available')
             ->get();
 
         return view(

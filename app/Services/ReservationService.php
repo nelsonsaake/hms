@@ -32,38 +32,6 @@ class ReservationService
     }
 
     /**
-     * Check a guest into their booking.
-     *
-     * @param Booking $booking
-     * @throws InvalidArgumentException
-     * @return void
-     */
-    public function checkIn(Booking $booking): void
-    {
-        if ($booking->status !== BookingStatus::CONFIRMED) {
-            throw new InvalidArgumentException("Booking must be confirmed before check-in.");
-        }
-
-        $booking->update(['status' => BookingStatus::CHECKED_IN]);
-    }
-
-    /**
-     * Check a guest out of their booking.
-     *
-     * @param Booking $booking
-     * @throws InvalidArgumentException
-     * @return void
-     */
-    public function checkOut(Booking $booking): void
-    {
-        if ($booking->status !== BookingStatus::CHECKED_IN) {
-            throw new InvalidArgumentException("Booking must be checked-in before check-out.");
-        }
-
-        $booking->update(['status' => BookingStatus::CHECKED_OUT]);
-    }
-
-    /**
      * Get a list of valid next statuses for a booking, given its current status.
      *
      * @param string $current
@@ -81,22 +49,4 @@ class ReservationService
         };
     }
 
-    /**
-     * Update the booking's status based on a string or array input.
-     *
-     * @param Booking $booking
-     * @param string|array $statusOrPayload
-     * @throws InvalidArgumentException
-     * @return void
-     */
-    public function updateStatus(Booking $booking, string|array $statusOrPayload): void
-    {
-        $status = is_array($statusOrPayload) ? ($statusOrPayload['status'] ?? null) : $statusOrPayload;
-
-        if (!in_array($status, BookingStatus::values(), true)) {
-            throw new InvalidArgumentException("Invalid status provided.");
-        }
-
-        $booking->update(['status' => $status]);
-    }
 }

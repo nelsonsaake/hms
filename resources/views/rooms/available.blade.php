@@ -1,5 +1,6 @@
 <x-layouts.app :title="__('Rooms')">
-    <h2 class="text-xl font-semibold leading-tight text-gray-800 dark:text-gray-200 py-4 uppercase border-b-2 border-b-gray-200 dark:border-b-neutral-700">
+    <h2
+        class="text-xl font-semibold leading-tight text-gray-800 dark:text-gray-200 py-4 uppercase border-b-2 border-b-gray-200 dark:border-b-neutral-700">
         <div class="flex justify-between">
             <div>
                 <span onclick="history.back()" class="pr-8 cursor-pointer inline-block">←</span>
@@ -21,8 +22,10 @@
 
     {{-- Filters --}}
     <div class="mt-4">
-        <form method="GET" action="{{ route('rooms.available', ['status' => RoomStatus::AVAILABLE]) }}" class="flex flex-wrap gap-2">
-            <input type="text" name="search" value="{{ request('search') }}" placeholder="{{ __('Search rooms...') }}"
+        <form method="GET" action="{{ route('rooms.available', ['status' => RoomStatus::AVAILABLE]) }}"
+            class="flex flex-wrap gap-2">
+            <input type="text" name="search" value="{{ request('search') }}"
+                placeholder="{{ __('Search rooms...') }}"
                 class="flex-1 min-w-[200px] rounded-lg border border-neutral-300 bg-white px-4 py-2 text-sm text-neutral-700 shadow-sm focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500 dark:border-neutral-600 dark:bg-neutral-800 dark:text-white" />
 
             <button type="submit"
@@ -57,18 +60,21 @@
                         <td class="px-4 py-3 text-sm text-neutral-700 dark:text-gray-100">{{ $room->beds }}</td>
                         <td class="px-4 py-3 text-sm text-neutral-700 dark:text-gray-100">{{ mfmt($room->price) }}</td>
                         <td class="px-4 py-3 text-sm">
-                            <span class="inline-block rounded-full px-3 py-1 text-xs font-medium
-                                {{ $room->status === App\Enums\RoomStatus::AVAILABLE ? 'text-green-800 bg-green-100 dark:text-green-100 dark:bg-green-800' :
-                                   ($room->status === App\Enums\RoomStatus::BOOKED ? 'text-yellow-800 bg-yellow-100 dark:text-yellow-100 dark:bg-yellow-700' :
-                                   'text-red-800 bg-red-100 dark:text-red-100 dark:bg-red-700') }}">
+                            <span
+                                class="inline-block rounded-full px-3 py-1 text-xs font-medium
+                                {{ $room->status === App\Enums\RoomStatus::AVAILABLE
+                                    ? 'text-green-800 bg-green-100 dark:text-green-100 dark:bg-green-800'
+                                    : ($room->status === App\Enums\RoomStatus::BOOKED
+                                        ? 'text-yellow-800 bg-yellow-100 dark:text-yellow-100 dark:bg-yellow-700'
+                                        : 'text-red-800 bg-red-100 dark:text-red-100 dark:bg-red-700') }}">
                                 {{ efmt($room->status) }}
                             </span>
                         </td>
                         <td>
-                            <a href="{{ route('reservations.create', $room->id) }}"
-                                    class="bg-blue-900 hover:bg-blue-950 text-white text-sm px-4 py-2 rounded-full font-medium transition">
-                                    Book Now
-                                </a>
+                            <a href="{{ route('reservations.create', ['room' => $room->id]) }}"
+                                class="bg-blue-900 hover:bg-blue-950 text-white text-sm px-4 py-2 rounded-full font-medium transition">
+                                Book
+                            </a>
                         </td>
                     </tr>
                 @empty

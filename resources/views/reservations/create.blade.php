@@ -25,7 +25,7 @@
         <form wire:submit.prevent="save" action="{{ route('reservations.store') }}" method="POST" class="space-y-6" >
             @csrf
                     @php
-                        $roomId = old('room_id', request('room_id'));
+                        $roomId = old('room_id') ?? request('room_id') ?? request('room');
                     @endphp
                     <flux:select
                         wire:model="room_id"
@@ -38,7 +38,7 @@
                         @foreach ($rooms as $v)
                             <option 
                                 value="{{ $v->id }}"
-                                {{ $roomId == $v->id ? 'selected' : '' }}
+                                {{ $v->id == $roomId ? 'selected' : '' }}
                             >
                                 Room {{ $v->number }}, {{ efmt($v->type) }}, Floor {{ $v->floor }}
                             </option>

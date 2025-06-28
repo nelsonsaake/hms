@@ -22,12 +22,12 @@ class UpdateReservationRequest extends FormRequest
     public function rules(): array
     {
         return [ 
-            'room_id' => "sometimes|string|exists:rooms,id",  
-            'guest_name' => "sometimes|string",
-            'guest_email' => "sometimes|string",
-            'guest_phone' => "sometimes|string",
-            'from_date' => "sometimes|date",
-            'to_date' => "sometimes|date",
+            'room_id' => "sometimes|nullable|string|exists:rooms,id",  
+            'guest_name' => "sometimes|nullable|string",
+            'guest_email' => "sometimes|nullable|string",
+            'guest_phone' => "sometimes|nullable|string",
+            'from_date' => "sometimes|nullable|date",
+            'to_date' => "sometimes|nullable|date",
         ];
     }
 }

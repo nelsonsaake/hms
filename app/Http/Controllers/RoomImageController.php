@@ -37,7 +37,7 @@ class RoomImageController extends Controller
         } catch (\Exception $e) {
             Log::debug ("Error getting room image: " . $e->getMessage());
             $msg = 'Something went wrong getting room images, please try again later.';
-            return redirect()->back()->withErrors($msg);
+            return redirect()->back()->with('error', $msg);
         }
     }
 
@@ -61,7 +61,7 @@ class RoomImageController extends Controller
             );
         } catch (\Exception $e) {
             $msg = 'Something went wrong building create room image view, please try again later.';
-            return redirect()->back()->withErrors($msg);
+            return redirect()->back()->with('error', $msg);
         }
     }
 
@@ -83,7 +83,7 @@ class RoomImageController extends Controller
         } catch (\Exception $e) {
             Log::debug ("Error creating room image: " . $e->getMessage());
             $msg = 'Something went wrong creating room image, please try again later.';
-            return redirect()->back()->withErrors($msg);
+            return redirect()->back()->with('error', $msg);
         }
     }
 
@@ -123,7 +123,7 @@ class RoomImageController extends Controller
             );
         } catch (\Exception $e) {
             $msg = 'Something went wrong building create room image view, please try again later.';
-            return redirect()->back()->withErrors($msg);
+            return redirect()->back()->with('error', $msg);
         }
     }
 
@@ -145,7 +145,7 @@ class RoomImageController extends Controller
                 ->with('success', 'Update room image successful');
         } catch (\Exception $e) {
             Log::debug ("Error updating room image: " . $e->getMessage());
-             return redirect()->back()->withErrors(
+             return redirect()->back()->with('error', 
                 'Something went wrong updating the room image, please try again later.'
             );
         } 
@@ -168,7 +168,7 @@ class RoomImageController extends Controller
                 ->with('success', 'Room Image deleted successfully.');
         } catch (\Exception $e) {
             Log::debug ("Error deleting room image: " .  $e->getMessage());
-             return redirect()->back()->withErrors(
+             return redirect()->back()->with('error', 
                 'Something went wrong deleting the room image, please try again later.'
             );
         } 

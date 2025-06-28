@@ -1,10 +1,15 @@
 # Tools
 
 - add a report page with an export button
-- on check in, let room status be checked in
-- on check out, let the room status be available
-- you can only check into a room, whose status is available
 - email notification
   + send email when a user makes a booking
   + send email when status changes on a booking
-- how can I accept empty date value, that is, optionally date, that is, it can be empty string or be a date
+
+## Yellow
+
+- room status:
+  - in service
+  - out of service
+  - room available is calculated value, based on bookings
+    + room is available if, it is not associated with any bookings that have been
+      - confirmed, checked in, at a certain date

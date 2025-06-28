@@ -13,6 +13,7 @@ use App\Models\Booking;
 use App\Models\User;
 use App\Models\Room;
 use App\Repositories\ReservationRepository;
+use App\Services\BookingStatusService;
 use App\Services\ReservationService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Gate;
@@ -30,7 +31,7 @@ class ReservationController extends Controller
      *
      * @return
      */
-    public function reservations(Request $request)
+    public function index(Request $request)
     {
         $reservations =  $this->reservationRepository->paginate($request->all());
         return view('reservations.index', compact('reservations'));
@@ -54,7 +55,7 @@ class ReservationController extends Controller
         } catch (\Exception $e) {
             Log::debug("Error getting reservations: " . $e->getMessage());
             $msg = 'Something went wrong getting reservations, please try again later.';
-            return redirect()->back()->withErrors($msg);
+            return redirect()->back()->with('error', $msg);
         }
     }
 
@@ -77,7 +78,7 @@ class ReservationController extends Controller
             );
         } catch (\Exception $e) {
             $msg = 'Something went wrong create reservation view, please try again later.';
-            return redirect()->back()->withErrors($msg);
+            return redirect()->back()->with('error', $msg);
         }
     }
 
@@ -90,15 +91,14 @@ class ReservationController extends Controller
     public function store(StoreReservationRequest $request)
     {
         try {
-            $reservation = $this->reservationRepository->create($request->all());
+            $this->reservationRepository->create($request->all());
             return redirect()
                 ->route('reservations.my')
                 ->with('success', 'Create reservation successful');
         } catch (\Exception $e) {
             Log::debug("Error creating reservation: " . $e->getMessage());
-            $msg = 'Something went wrong creating reservation, please try again later.';
-            dd($e->getMessage());
-            return redirect()->back()->with('error', $msg);
+            $msg = 'Something went wrong creating reservation, please try again later.'; 
+            return redirect()->back()->with('error', $e->getMessage());
         }
     }
 
@@ -142,7 +142,7 @@ class ReservationController extends Controller
             );
         } catch (\Exception $e) {
             $msg = 'Something went wrong create reservation view, please try again later.';
-            return redirect()->back()->withErrors($msg);
+            return redirect()->back()->with('error', $msg);
         }
     }
 
@@ -164,35 +164,26 @@ class ReservationController extends Controller
                 ->with('success', 'Update reservation successful');
         } catch (\Exception $e) {
             Log::debug("Error updating reservation: " . $e->getMessage());
-            return redirect()->back()->withErrors(
+            return redirect()->back()->with(
+                'error',
                 'Something went wrong updating the reservation, please try again later.'
             );
         }
     }
 
-    public function updateStatus(Request $request, Booking $reservation)
+    public function updateStatus(Request $request, Booking $reservation, BookingStatusService $service)
     {
-        // $this->authorize('modify', $reservation);
-
-        $new = $request->input('status');
-        if (!in_array($new, BookingStatusNextOptions::options($reservation->status), true)) {
-            return redirect()->back()->with('error', 'Invalid status transition.');
+        try {
+            $service->update($reservation, $request->all());
+            return back()->with('success', 'Reservation ' . efmt($request->input('status')) . ' successfully.');
+        } catch (\Exception $e) {
+            Log::debug("Error marking reservation as " . efmt($request->input('status')) . ": " . $e->getMessage());
+            return redirect()->back()->with(
+                'error',
+                $e->getMessage()
+                // 'Something went wrong updating the reservation, please try again later.'
+            );
         }
-
-        $reservation->update(['status' => $new]);
-        return redirect()->back()->with('success', 'Reservations ' . efmt($new) . ' successfully.');
-    }
-
-    public function checkIn(Request $request, Booking $reservation)
-    {
-        $this->reservationService->checkIn($reservation);
-        return redirect()->route('reservations');
-    }
-
-    public function checkOut(Request $request, Booking $reservation)
-    {
-        $this->reservationService->checkOut($reservation);
-        return redirect()->route('reservations');
     }
 
     /**
@@ -212,7 +203,8 @@ class ReservationController extends Controller
                 ->with('success', 'Reservation deleted successfully.');
         } catch (\Exception $e) {
             Log::debug("Error deleting reservation: " .  $e->getMessage());
-            return redirect()->back()->withErrors(
+            return redirect()->back()->with(
+                'error',
                 'Something went wrong deleting the reservation, please try again later.'
             );
         }

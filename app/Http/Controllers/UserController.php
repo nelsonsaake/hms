@@ -36,7 +36,7 @@ class UserController extends Controller
         } catch (\Exception $e) {
             Log::debug ("Error getting user: " . $e->getMessage());
             $msg = 'Something went wrong getting users, please try again later.';
-            return redirect()->back()->withErrors($msg);
+            return redirect()->back()->with('error', $msg);
         }
     }
 
@@ -58,7 +58,7 @@ class UserController extends Controller
             );
         } catch (\Exception $e) {
             $msg = 'Something went wrong building create user view, please try again later.';
-            return redirect()->back()->withErrors($msg);
+            return redirect()->back()->with('error', $msg);
         }
     }
 
@@ -80,7 +80,7 @@ class UserController extends Controller
         } catch (\Exception $e) {
             Log::debug ("Error creating user: " . $e->getMessage());
             $msg = 'Something went wrong creating user, please try again later.';
-            return redirect()->back()->withErrors($msg);
+            return redirect()->back()->with('error', $msg);
         }
     }
 
@@ -119,7 +119,7 @@ class UserController extends Controller
             );
         } catch (\Exception $e) {
             $msg = 'Something went wrong building create user view, please try again later.';
-            return redirect()->back()->withErrors($msg);
+            return redirect()->back()->with('error', $msg);
         }
     }
 
@@ -141,7 +141,7 @@ class UserController extends Controller
                 ->with('success', 'Update user successful');
         } catch (\Exception $e) {
             Log::debug ("Error updating user: " . $e->getMessage());
-             return redirect()->back()->withErrors(
+             return redirect()->back()->with('error', 
                 'Something went wrong updating the user, please try again later.'
             );
         } 
@@ -164,7 +164,7 @@ class UserController extends Controller
                 ->with('success', 'User deleted successfully.');
         } catch (\Exception $e) {
             Log::debug ("Error deleting user: " .  $e->getMessage());
-             return redirect()->back()->withErrors(
+             return redirect()->back()->with('error', 
                 'Something went wrong deleting the user, please try again later.'
             );
         } 

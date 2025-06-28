@@ -20,30 +20,41 @@ Route::get('/', WelcomeController::class)->name('home');
 Route::middleware(['auth', 'verified'])
     ->controller(DashboardController::class)
     ->group(function () {
-        Route::get('/dashboard', 'dashboard')->name('dashboard');
+        Route::get('/dashboard', 'index')->name('dashboard');
     });
 
 /**
  * Reservation
  */
 Route::middleware(['auth'])->group(function () {
-    Route::resource('reservations', controller: ReservationController::class)->names('reservations');
-    Route::controller(ReservationController::class)->prefix('reservations')->name('reservations.')
+    Route::controller(ReservationController::class)
+        ->prefix('reservations')
+        ->name('reservations.')
         ->group(function () {
-            Route::get('/', 'my')->name('my');
+            Route::get('/my', 'my')->name('my');
             Route::post('/{reservation}/status', 'updateStatus')->name('updateStatus');
-            Route::post('/{reservation}/check-in', 'checkIn')->name('checkin');
-            Route::post('/{reservation}/check-out', 'checkOut')->name('checkout');
         });
+});
+
+
+Route::middleware(['auth'])->group(function () {
+
+    Route::get('/bookings/report', [App\Http\Controllers\BookingReportController::class, 'index'])
+        ->name('bookings.report');
+
+    Route::get('/bookings/report/export', [App\Http\Controllers\BookingReportController::class, 'export'])
+        ->name('bookings.report.export');
 });
 
 /**
  * Room
  */
 Route::middleware(['auth'])->group(function () {
-    Route::controller(RoomController2::class)->prefix('rooms')->name('rooms.')
-        ->group(function () { 
-            Route::get('/available', 'rooms')->name('rooms.available');
+    Route::controller(RoomController2::class)
+        ->prefix('rooms')
+        ->name('rooms.')
+        ->group(function () {
+            Route::get('/available', 'available')->name('available');
             Route::post('/{reservation}/make-available', 'makeAvailable')->name('makeAvailable');
             Route::post('/{reservation}/make-out-of-service', 'makeOOS')->name('makeOOS');
         });
@@ -68,6 +79,13 @@ Route::middleware(['auth'])->group(function () {
     Volt::route('settings/profile', 'settings.profile')->name('settings.profile');
     Volt::route('settings/password', 'settings.password')->name('settings.password');
     Volt::route('settings/appearance', 'settings.appearance')->name('settings.appearance');
+});
+
+/**
+ * Reservations Resources
+ */
+Route::middleware(['auth'])->group(function () {
+    Route::resource('reservations', ReservationController::class)->names('reservations');
 });
 
 require __DIR__ . '/auth.php';

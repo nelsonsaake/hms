@@ -24,16 +24,16 @@ class UpdateBookingRequest extends FormRequest
         
  
         return [
-            'user_id' => "sometimes|string|exists:users,id",
-            'room_id' => "sometimes|string|exists:rooms,id",
-            'check_in' => "sometimes|date",
-            'check_out' => "sometimes|date",
-            'status' => "sometimes|string",
-            'guest_name' => "sometimes|string",
-            'guest_email' => "sometimes|string",
-            'guest_phone' => "sometimes|string",
-            'from_date' => "sometimes|date",
-            'to_date' => "sometimes|date",
+            'user_id' => "sometimes|nullable|string|exists:users,id",
+            'room_id' => "sometimes|nullable|string|exists:rooms,id",
+            'check_in' => "sometimes|nullable|date",
+            'check_out' => "sometimes|nullable|date",
+            'status' => "sometimes|nullable|string",
+            'guest_name' => "sometimes|nullable|string",
+            'guest_email' => "sometimes|nullable|string",
+            'guest_phone' => "sometimes|nullable|string",
+            'from_date' => "sometimes|nullable|date",
+            'to_date' => "sometimes|nullable|date",
         ];
     }
 }

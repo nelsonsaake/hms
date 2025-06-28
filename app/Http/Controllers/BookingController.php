@@ -38,7 +38,7 @@ class BookingController extends Controller
         } catch (\Exception $e) {
             Log::debug ("Error getting booking: " . $e->getMessage());
             $msg = 'Something went wrong getting bookings, please try again later.';
-            return redirect()->back()->withErrors($msg);
+            return redirect()->back()->with('error', $msg);
         }
     }
 
@@ -63,7 +63,7 @@ class BookingController extends Controller
             );
         } catch (\Exception $e) {
             $msg = 'Something went wrong building create booking view, please try again later.';
-            return redirect()->back()->withErrors($msg);
+            return redirect()->back()->with('error', $msg);
         }
     }
 
@@ -85,7 +85,7 @@ class BookingController extends Controller
         } catch (\Exception $e) {
             Log::debug ("Error creating booking: " . $e->getMessage());
             $msg = 'Something went wrong creating booking, please try again later.';
-            return redirect()->back()->withErrors($msg);
+            return redirect()->back()->with('error', $msg);
         }
     }
 
@@ -126,7 +126,7 @@ class BookingController extends Controller
             );
         } catch (\Exception $e) {
             $msg = 'Something went wrong building create booking view, please try again later.';
-            return redirect()->back()->withErrors($msg);
+            return redirect()->back()->with('error', $msg);
         }
     }
 
@@ -148,7 +148,7 @@ class BookingController extends Controller
                 ->with('success', 'Update booking successful');
         } catch (\Exception $e) {
             Log::debug ("Error updating booking: " . $e->getMessage());
-             return redirect()->back()->withErrors(
+             return redirect()->back()->with('error', 
                 'Something went wrong updating the booking, please try again later.'
             );
         } 
@@ -171,7 +171,7 @@ class BookingController extends Controller
                 ->with('success', 'Booking deleted successfully.');
         } catch (\Exception $e) {
             Log::debug ("Error deleting booking: " .  $e->getMessage());
-             return redirect()->back()->withErrors(
+             return redirect()->back()->with('error', 
                 'Something went wrong deleting the booking, please try again later.'
             );
         } 

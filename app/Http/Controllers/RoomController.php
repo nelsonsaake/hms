@@ -35,7 +35,7 @@ class RoomController extends Controller
         } catch (\Exception $e) {
             Log::debug ("Error getting room: " . $e->getMessage());
             $msg = 'Something went wrong getting rooms, please try again later.';
-            return redirect()->back()->withErrors($msg);
+            return redirect()->back()->with('error', $msg);
         }
     }
 
@@ -50,14 +50,12 @@ class RoomController extends Controller
         Gate::authorize('create', Room::class);
 
         try {
-
             return view(
                 'rooms.create',
-
             );
         } catch (\Exception $e) {
             $msg = 'Something went wrong building create room view, please try again later.';
-            return redirect()->back()->withErrors($msg);
+            return redirect()->back()->with('error', $msg);
         }
     }
 
@@ -79,7 +77,7 @@ class RoomController extends Controller
         } catch (\Exception $e) {
             Log::debug ("Error creating room: " . $e->getMessage());
             $msg = 'Something went wrong creating room, please try again later.';
-            return redirect()->back()->withErrors($msg);
+            return redirect()->back()->with('error', $msg);
         }
     }
 
@@ -118,7 +116,7 @@ class RoomController extends Controller
             );
         } catch (\Exception $e) {
             $msg = 'Something went wrong building create room view, please try again later.';
-            return redirect()->back()->withErrors($msg);
+            return redirect()->back()->with('error', $msg);
         }
     }
 
@@ -140,7 +138,7 @@ class RoomController extends Controller
                 ->with('success', 'Update room successful');
         } catch (\Exception $e) {
             Log::debug ("Error updating room: " . $e->getMessage());
-             return redirect()->back()->withErrors(
+             return redirect()->back()->with('error', 
                 'Something went wrong updating the room, please try again later.'
             );
         } 
@@ -163,7 +161,7 @@ class RoomController extends Controller
                 ->with('success', 'Room deleted successfully.');
         } catch (\Exception $e) {
             Log::debug ("Error deleting room: " .  $e->getMessage());
-             return redirect()->back()->withErrors(
+             return redirect()->back()->with('error', 
                 'Something went wrong deleting the room, please try again later.'
             );
         } 

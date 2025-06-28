@@ -16,10 +16,8 @@
     <script src="https://cdn.tailwindcss.com"></script>
 </head>
 
-<body 
-    class="bg-gray-100 text-gray-900 font-instrument-sans bg-repeat" 
-    style="background-image: url('/bg.jpg'); background-size: 18%"
->
+<body class="bg-gray-100 text-gray-900 font-instrument-sans bg-repeat"
+    style="background-image: url('/bg.jpg'); background-size: 18%">
 
     <!-- Header -->
     <header class="bg-white shadow">
@@ -65,14 +63,26 @@
                         <img loading="lazy" src="{{ $room->roomImages?->first()?->url ?? '/images/default-room.jpg' }}"
                             alt="{{ $room->type }}" class="w-full h-56 object-cover">
                         <div class="p-6 flex flex-col justify-between">
-                            <h4 class="text-xl font-semibold capitalize">{{ str_replace('_', ' ', $room->type) }}</h4>
+                            <div class="flex justify-between">
+                                <h4 class="text-xl font-semibold ">{{ efmt($room->type) }}</h4>
+                                <div>{{ efmt($room->status) }}</div>
+                            </div>
+                            <div class="flex text-gray-600 text-sm mt-2">
+                                Room {{ efmt($room->number) }} | Floor {{ efmt($room->floor) }}
+                            </div>
                             <p class="text-gray-600 mt-2 mb-4 text-sm">{{ $room->description }}</p>
                             <div class="flex items-center justify-between">
                                 <span class="text-xl font-bold">GH₵{{ nfmt($room->price) }}</span>
-                                <a href="{{ route('reservations.create', $room->id) }}"
-                                    class="bg-blue-900 hover:bg-blue-950 text-white text-sm px-4 py-2 rounded-full font-medium transition">
-                                    Book Now
-                                </a>
+                                @if ($room->status == RoomStatus::AVAILABLE)
+                                    <a href="{{ route('reservations.create', ['room' => $room->id]) }}"
+                                        class="bg-blue-900 hover:bg-blue-950 text-white text-sm px-4 py-2 rounded-full font-medium transition">
+                                        Book Now
+                                    </a>
+                                @else
+                                    <a class="bg-gray-300 hover:bg-gray-300 text-white text-sm px-4 py-2 rounded-full font-medium transition">
+                                        Book Now
+                                    </a>
+                                @endif
                             </div>
                         </div>
                     </div>
