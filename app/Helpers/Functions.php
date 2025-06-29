@@ -4,6 +4,10 @@ use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Str;
+use Illuminate\Mail\Mailable;
+use Illuminate\Support\Facades\Mail;
 
 /**
  * Get the value from the array if it's set, otherwise return default.
@@ -208,4 +212,42 @@ function authUser()
     }
 
     return null;
+}
+
+
+/**
+ * Send an email only if the recipient email is likely real (not fake/test).
+ *
+ * @param string|null $email
+ * @param Mailable $mailable
+ * @return bool
+ */
+function safeMailSend(?string $email, Mailable $mailable): bool
+{
+    if (!$email || !filter_var($email, FILTER_VALIDATE_EMAIL)) {
+        Log::warning("Invalid or missing email: {$email}");
+        return false;
+    }
+
+    $fakeDomains = [
+        'example.com',
+        'example.org',
+        'example.net',
+        'test.com',
+        'test.test',
+        'fake.com',
+        'mailinator.com',
+        'demo.com',
+        'invalid.com',
+    ];
+
+    $emailDomain = strtolower(Str::after($email, '@'));
+
+    if (in_array($emailDomain, $fakeDomains)) {
+        Log::info("Email skipped: fake/test domain detected ({$email})");
+        return false;
+    }
+
+    Mail::to($email)->send($mailable);
+    return true;
 }

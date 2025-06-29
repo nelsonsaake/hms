@@ -8,6 +8,7 @@ use App\Models\Booking;
 use App\Enums\BookingStatus;
 use App\Enums\RoomStatus;
 use App\Enums\BookingStatusNextOptions;
+use App\Mail\BookingStatusChanged;
 use InvalidArgumentException;
 
 class BookingStatusService
@@ -19,6 +20,13 @@ class BookingStatusService
         $this->validateTransition($booking, $status);
         $this->handleRoomSideEffects($booking, $status);
         $booking->update(['status' => $status]);
+        $this->sendStatusUpdateEmail($booking);
+    }
+
+    private function sendStatusUpdateEmail(Booking $booking)
+    {
+        $email = $booking->user->email ?? $booking->guest_email;
+        safeMailSend($email, new BookingStatusChanged($booking));
     }
 
     private function extractStatus(string|array $input): ?string

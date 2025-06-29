@@ -36,7 +36,9 @@ Route::middleware(['auth'])->group(function () {
         });
 });
 
-
+/**
+ * 
+ */
 Route::middleware(['auth'])->group(function () {
 
     Route::get('/bookings/report', [App\Http\Controllers\BookingReportController::class, 'index'])
@@ -68,7 +70,9 @@ Route::prefix('testing')
     ->controller(TestingController::class)
     ->group(function () {
         Route::get('/seed', 'seed');
-    });
+        Route::get('/mail', 'mail');
+        Route::get('/preview', 'preview');
+});
 
 /**
  * Settings

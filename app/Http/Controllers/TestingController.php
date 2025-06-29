@@ -2,9 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use App\Mail\BookingReceived;
+use App\Mail\BookingStatusChanged;
+use App\Models\Booking;
 use App\Services\RoomImageSeederService;
 use App\Services\RoomSeederService;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Mail;
 
 class TestingController extends Controller
 {
@@ -21,5 +25,20 @@ class TestingController extends Controller
     ) {
         $roomSeederService->run();
         $roomImageSeederService->run();
+    }
+
+    public function mail()
+    {
+        $booking = Booking::first();
+        Mail::to("nelsonsaakekofi@gmail.com")
+            ->send(new BookingStatusChanged($booking));
+            // ->send(new BookingReceived($booking));
+    }
+
+    public function preview()
+    {
+        $reservation = Booking::inRandomOrder()->first();
+        return view('emails.booking_received', compact('reservation'));
+        return view('emails.booking_status_changed', compact('reservation'));
     }
 }

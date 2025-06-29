@@ -1,10 +1,3 @@
-# Tools
-
-- add a report page with an export button
-- email notification
-  + send email when a user makes a booking
-  + send email when status changes on a booking
-
 ## Yellow
 
 - room status:
@@ -13,3 +6,7 @@
   - room available is calculated value, based on bookings
     + room is available if, it is not associated with any bookings that have been
       - confirmed, checked in, at a certain date
+
+## Image host
+
+https://i.postimg.cc/3JJmWB1y/logo.png

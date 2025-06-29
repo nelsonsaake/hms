@@ -6,6 +6,7 @@ namespace App\Repositories;
 
 use App\Enums\BookingStatus;
 use App\Enums\RoomStatus;
+use App\Mail\BookingReceived;
 use Carbon\Carbon;
 use App\Models\Booking;
 use App\Models\Room;
@@ -87,7 +88,7 @@ class ReservationRepository
     public function create(array $data): Booking
     {
         return DB::transaction(function () use ($data) {
-            
+
             // Fetch and validate room
             $room = Room::lockForUpdate()->findOrFail($data['room_id']);
 
@@ -109,8 +110,16 @@ class ReservationRepository
                 'status' => RoomStatus::BOOKED,
             ]);
 
+            $this->sendBookingReceivedEmail($booking);
+
             return $booking;
         });
+    }
+
+    private function sendBookingReceivedEmail(Booking $booking)
+    {
+        $email = $booking->user->email ?? $booking->guest_email;
+        safeMailSend($email, new BookingReceived($booking));
     }
 
     /**
