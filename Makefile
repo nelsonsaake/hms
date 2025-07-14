@@ -28,3 +28,6 @@ clear:
 raps:
 	php artisan db:seed --class=RolesAndPermissionsSeeder
 	php artisan db:seed --class=UserSeeder
+	
+free-port-3306:
+	start kps.exe
