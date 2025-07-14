@@ -29,9 +29,6 @@ raps:
 	php artisan db:seed --class=RolesAndPermissionsSeeder
 	php artisan db:seed --class=UserSeeder
 	
-free-port-3306:
-	start kps.exe
-
 # Port variable
 PORT = 3306
 
@@ -40,3 +37,7 @@ check-port-cmd:
 
 check-port-ps:
 	powershell -Command "Get-NetTCPConnection -LocalPort $(PORT) -ErrorAction SilentlyContinue | Format-Table -AutoSize || Write-Host 'Port $(PORT) is free'"
+
+kill:
+	taskkill /PID $(word 2,$(MAKECMDGOALS)) /F
+	
