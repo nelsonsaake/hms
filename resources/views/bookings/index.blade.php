@@ -1,6 +1,15 @@
 <x-layouts.app :title="__('Bookings')">
     <h2 class="text-xl font-semibold leading-tight text-gray-800 dark:text-gray-200 py-4 uppercase border-b-2 border-b-gray-200 dark:border-b-neutral-700">
-       {{ __('Bookings') }}
+        <div x-data="{ canGoBack: false }" x-init="canGoBack = history.length > 1">
+            <span
+                x-show="canGoBack"
+                onclick="history.back()"
+                class="pr-2 cursor-pointer mr-2 inline-block"
+            >
+                ←
+            </span>
+            {{ __('Bookings') }}
+        </div>
     </h2>
 
     @if(session('success'))
@@ -16,17 +25,7 @@
     @endif
 
     <div class="flex w-full flex-1 flex-col gap-4 rounded-xl mt-8">
-        <div class="flex items-center justify-between px-2 py-4 gap-4 flex-wrap">
-            <!-- Left Side: Back Button -->
-            <x-button onclick="history.back()">
-                ← {{ __('Back')}}
-            </x-button>
-
-            <!-- Middle: Search Input -->
-            <input
-                type="text"
-                placeholder="Search..."
-                class="flex-1 min-w-[200px] rounded-lg border border-neutral-300 bg-white px-4 py-2 text-sm text-neutral-700 shadow-sm focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500 dark:border-neutral-600 dark:bg-neutral-800 dark:text-white" />
+        <div class="flex items-center justify-between px-2 py-2 gap-4">
 
             <!-- Right Side: Add Button -->
             <a
@@ -35,6 +34,20 @@
                 class="inline-flex items-center rounded-lg bg-blue-600 px-4 py-2 text-sm font-semibold text-white shadow hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 dark:bg-blue-500 dark:hover:bg-blue-600">
                 + Add
             </a>
+
+            <form method="GET" class="flex justify-end items-end gap-2 w-fullx"> 
+                <!-- Middle: Search Input -->
+                <input
+                    type="text"
+                    name="search"
+                    value="{{ request('search') }}"
+                    placeholder="Search..."
+                    class="flex-1 min-w-[200px] rounded-lg border border-neutral-300 bg-white px-4 py-2 text-sm text-neutral-700 shadow-sm focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500 dark:border-neutral-600 dark:bg-neutral-800 dark:text-white" />
+                    <!-- Right Side: Add Button -->
+                    <x-button variant="primary" type="submit">
+                        Search
+                    </x-button>
+            </form>
         </div>
         <div class="overflow-x-auto rounded-xl border border-neutral-200 dark:border-neutral-700">
             <table class="min-w-full divide-y divide-neutral-200 dark:divide-neutral-700 w-full table-auto">
@@ -64,7 +77,9 @@
                                     href="{{route('users.show', $v?->user_id)}}"
                                     class="underline text-blue-900 dark:text-blue-500"
                                 >
-                                    {{$v->user?->name ?? idfmt($v->user_id)}}
+                                    {{$v->user?->name ?? 
+                                        $v->user?->number ?? 
+                                        idfmt($v->user_id)}}
                                 </a>
                             </td>
                             <td class="px-4 py-3 text-sm text-neutral-700 dark:text-gray-100">
@@ -72,7 +87,9 @@
                                     href="{{route('rooms.show', $v?->room_id)}}"
                                     class="underline text-blue-900 dark:text-blue-500"
                                 >
-                                    {{$v->room?->name ?? idfmt($v->room_id)}}
+                                    {{$v->room?->name ?? 
+                                        $v->room?->number ?? 
+                                        idfmt($v->room_id)}}
                                 </a>
                             </td>
                             <td class="px-4 py-3 text-sm text-neutral-700 dark:text-gray-100">
