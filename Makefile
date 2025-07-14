@@ -31,3 +31,12 @@ raps:
 	
 free-port-3306:
 	start kps.exe
+
+# Port variable
+PORT = 3306
+
+check-port-cmd:
+	netstat -ano | findstr :$(PORT) || echo Port $(PORT) is free\
+
+check-port-ps:
+	powershell -Command "Get-NetTCPConnection -LocalPort $(PORT) -ErrorAction SilentlyContinue | Format-Table -AutoSize || Write-Host 'Port $(PORT) is free'"
