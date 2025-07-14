@@ -5,8 +5,8 @@ namespace App\Http\Controllers;
 use App\Mail\BookingReceived;
 use App\Mail\BookingStatusChanged;
 use App\Models\Booking;
-use App\Services\RoomImageSeederService;
-use App\Services\RoomSeederService;
+use Database\Seeders\HMSRoomImageSeeder;
+use Database\Seeders\HMSRoomSeeder;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
 
@@ -15,13 +15,13 @@ class TestingController extends Controller
     /**
      * Make room details and room images make sense
      * 
-     * @param \App\Services\RoomSeederService $roomSeederService
-     * @param \App\Services\RoomImageSeederService $roomImageSeederService
+     * @param \Database\Seeders\HMSRoomSeeder $roomSeederService
+     * @param \Database\Seeders\HMSRoomImageSeeder $roomImageSeederService
      * @return  
      */
     public function seed(
-        RoomSeederService $roomSeederService,
-        RoomImageSeederService $roomImageSeederService,
+        HMSRoomSeeder $roomSeederService,
+        HMSRoomImageSeeder $roomImageSeederService,
     ) {
         $roomSeederService->run();
         $roomImageSeederService->run();
@@ -32,7 +32,7 @@ class TestingController extends Controller
         $booking = Booking::first();
         Mail::to("nelsonsaakekofi@gmail.com")
             ->send(new BookingStatusChanged($booking));
-            // ->send(new BookingReceived($booking));
+        // ->send(new BookingReceived($booking));
     }
 
     public function preview()

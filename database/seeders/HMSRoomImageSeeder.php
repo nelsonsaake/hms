@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\Services;
+namespace Database\Seeders;
 
 use App\Enums\RoomType;
 use App\Models\Room;
@@ -11,8 +11,9 @@ use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Http\File as LaravelFile;
 use Illuminate\Support\Str;
+use Illuminate\Database\Seeder;
 
-class RoomImageSeederService
+class HMSRoomImageSeeder extends Seeder
 {
     /**
      * Simulates uploading files from a resource path directory and stores them like uploaded files.
@@ -78,7 +79,7 @@ class RoomImageSeederService
         $rooms = Room::all();
 
         // Clear files from disk
-        foreach(RoomType::values() as $roomType){
+        foreach (RoomType::values() as $roomType) {
             $this->clearUploadedRoomFiles($roomType);
         }
 

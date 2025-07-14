@@ -16,11 +16,11 @@ class DatabaseSeeder extends Seeder
         $this->call([
             RolesAndPermissionsSeeder::class,
             UserSeeder::class,
-            RoomSeeder::class, 
-            BookingSeeder::class, 
+            RoomSeeder::class,
+            BookingSeeder::class,
             RoomImageSeeder::class,
-
+            HMSRoomSeeder::class,
+            HMSRoomImageSeeder::class,
         ]);
     }
 }
-
