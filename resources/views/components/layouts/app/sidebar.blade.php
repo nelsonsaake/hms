@@ -36,11 +36,10 @@
 
                 @endhasrole
                 
-                @hasrole(Roles::USER) 
+ 
                     <flux:navlist.group :heading="__('Dashboard')" class="grid">
                         <x-nav-items.user/>
-                    </flux:navlist.group> 
-                @endhasrole 
+                    </flux:navlist.group>  
 
             </flux:navlist>
 
