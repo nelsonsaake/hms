@@ -63,7 +63,7 @@
                 @endforeach
             </flux:select>
 
-            <flux:input wire:model="guest_name" name="guest_name" id="guest_name" type="number"
+            <flux:input wire:model="guest_name" name="guest_name" id="guest_name" type="text"
                 :label="__('Guest Name')" :value="$booking->guest_name" :error="$errors->has('guest_name')"
                 :error-message="$errors->first('guest_name')" />
 
