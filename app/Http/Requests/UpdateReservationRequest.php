@@ -21,11 +21,11 @@ class UpdateReservationRequest extends FormRequest
      */
     public function rules(): array
     {
-        return [ 
-            'room_id' => "sometimes|nullable|string|exists:rooms,id",  
+        return [
+            'room_id' => "sometimes|nullable|string|exists:rooms,id",
             'guest_name' => "sometimes|nullable|string",
             'guest_email' => "sometimes|nullable|string",
-            'guest_phone' => "sometimes|nullable|string",
+            'guest_phone' => 'required|string|size:10',
             'from_date' => "sometimes|nullable|date",
             'to_date' => "sometimes|nullable|date",
         ];

@@ -21,11 +21,11 @@ class StoreReservationRequest extends FormRequest
      */
     public function rules(): array
     {
-         return [
+        return [
             'room_id' => 'required|string|exists:rooms,id',
             'guest_name' => 'required|string',
             'guest_email' => 'required|string',
-            'guest_phone' => 'required|string',
+            'guest_phone' => 'required|string|size:10',
             'from_date' => 'sometimes|nullable|date',
             'to_date' => 'sometimes|nullable|date',
         ];

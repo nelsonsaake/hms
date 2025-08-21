@@ -29,10 +29,9 @@ class StoreBookingRequest extends FormRequest
             'status' => 'required|string',
             'guest_name' => 'required|string',
             'guest_email' => 'required|string',
-            'guest_phone' => 'required|string',
+            'guest_phone' => 'required|string|size:10',
             'from_date' => 'required|date',
             'to_date' => 'required|date',
         ];
     }
 }
-

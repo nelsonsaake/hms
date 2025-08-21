@@ -4,14 +4,14 @@ declare(strict_types=1);
 
 namespace App\Http\Controllers;
 
-use App\Http\Controllers\Controller; 
+use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreBookingRequest;
 use App\Http\Requests\UpdateBookingRequest;
 use App\Http\Resources\BookingResource;
 use App\Models\Booking;
 use App\Models\User;
 use App\Models\Room;
-use App\Repositories\BookingRepository; 
+use App\Repositories\BookingRepository;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Log;
@@ -19,9 +19,8 @@ use Illuminate\Support\Facades\Log;
 class BookingController extends Controller
 {
     public function __construct(
-        protected BookingRepository $bookingRepository, 
-    ) {
-    }
+        protected BookingRepository $bookingRepository,
+    ) {}
 
     /**
      * Display a listing of the booking.
@@ -32,11 +31,11 @@ class BookingController extends Controller
     {
         Gate::authorize('viewAny', Booking::class);
 
-        try {  
+        try {
             $bookings = $this->bookingRepository->paginate($request->all());
             return view('bookings.index', compact('bookings'));
         } catch (\Exception $e) {
-            Log::debug ("Error getting booking: " . $e->getMessage());
+            Log::debug("Error getting booking: " . $e->getMessage());
             $msg = 'Something went wrong getting bookings, please try again later.';
             return redirect()->back()->with('error', $msg);
         }
@@ -52,13 +51,13 @@ class BookingController extends Controller
     {
         Gate::authorize('create', Booking::class);
 
-        try { 
+        try {
             $users = User::all();
             $rooms = Room::all();
 
             return view(
-                'bookings.create', 
-                compact('users','rooms'),
+                'bookings.create',
+                compact('users', 'rooms'),
 
             );
         } catch (\Exception $e) {
@@ -77,13 +76,13 @@ class BookingController extends Controller
     {
         Gate::authorize('create', Booking::class);
 
-        try { 
-            $booking = $this->bookingRepository->create($request->all()); 
+        try {
+            $booking = $this->bookingRepository->create($request->all());
             return redirect()
                 ->route('bookings.index')
                 ->with('success', 'Create booking successful');
         } catch (\Exception $e) {
-            Log::debug ("Error creating booking: " . $e->getMessage());
+            Log::debug("Error creating booking: " . $e->getMessage());
             $msg = 'Something went wrong creating booking, please try again later.';
             return redirect()->back()->with('error', $msg);
         }
@@ -100,7 +99,7 @@ class BookingController extends Controller
         Gate::authorize('view', $booking);
 
         return view(
-            'bookings.show', 
+            'bookings.show',
             compact('booking'),
         );
     }
@@ -115,14 +114,17 @@ class BookingController extends Controller
     {
         Gate::authorize('view', $booking);
 
-        try { 
+        try {
             $users = User::all();
             $rooms = Room::all();
 
             return view(
-                'bookings.edit', 
+                'bookings.edit',
                 compact(
-                    'booking','users','rooms'),
+                    'booking',
+                    'users',
+                    'rooms'
+                ),
             );
         } catch (\Exception $e) {
             $msg = 'Something went wrong building create booking view, please try again later.';
@@ -147,11 +149,12 @@ class BookingController extends Controller
                 ->route('bookings.index')
                 ->with('success', 'Update booking successful');
         } catch (\Exception $e) {
-            Log::debug ("Error updating booking: " . $e->getMessage());
-             return redirect()->back()->with('error', 
+            Log::debug("Error updating booking: " . $e->getMessage());
+            return redirect()->back()->with(
+                'error',
                 'Something went wrong updating the booking, please try again later.'
             );
-        } 
+        }
     }
 
     /**
@@ -170,11 +173,11 @@ class BookingController extends Controller
                 ->route('bookings.index')
                 ->with('success', 'Booking deleted successfully.');
         } catch (\Exception $e) {
-            Log::debug ("Error deleting booking: " .  $e->getMessage());
-             return redirect()->back()->with('error', 
+            Log::debug("Error deleting booking: " .  $e->getMessage());
+            return redirect()->back()->with(
+                'error',
                 'Something went wrong deleting the booking, please try again later.'
             );
-        } 
+        }
     }
 }
-

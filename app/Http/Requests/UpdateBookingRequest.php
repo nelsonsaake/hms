@@ -21,8 +21,8 @@ class UpdateBookingRequest extends FormRequest
      */
     public function rules(): array
     {
-        
- 
+
+
         return [
             'user_id' => "sometimes|nullable|string|exists:users,id",
             'room_id' => "sometimes|nullable|string|exists:rooms,id",
@@ -31,10 +31,9 @@ class UpdateBookingRequest extends FormRequest
             'status' => "sometimes|nullable|string",
             'guest_name' => "sometimes|nullable|string",
             'guest_email' => "sometimes|nullable|string",
-            'guest_phone' => "sometimes|nullable|string",
+            'guest_phone' => 'required|string|size:10',
             'from_date' => "sometimes|nullable|date",
             'to_date' => "sometimes|nullable|date",
         ];
     }
 }
-
