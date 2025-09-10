@@ -21,7 +21,7 @@ class UpdateUserRequest extends FormRequest
      */
     public function rules(): array
     {
-        $userEmail = $this->route('user')->Email;
+        $userEmail = $this->route('user')->email;
         
  
         return [
@@ -30,4 +30,3 @@ class UpdateUserRequest extends FormRequest
         ];
     }
 }
-

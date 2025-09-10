@@ -26,8 +26,8 @@ class StoreReservationRequest extends FormRequest
             'guest_name' => 'required|string',
             'guest_email' => 'required|string',
             'guest_phone' => 'required|string|size:10',
-            'from_date' => 'sometimes|nullable|date',
-            'to_date' => 'sometimes|nullable|date',
+            'from_date' => 'sometimes|nullable|date|after_or_equal:today',
+            'to_date' => 'sometimes|nullable|date|after_or_equal:to_date',
         ];
     }
 }
